@@ -23,9 +23,9 @@ class RegistrationTestCase(APITestCase):
             # Include other fields required for UserProfile
         }
         response = self.client.post(reverse("user-profile-register"), json.dumps(data), content_type="application/json")
-        print(response)
+        print(response.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertTrue("newuser" in response.data["message"])
+        self.assertTrue("User created successfully" in response.data["message"])
 
     # def test_registration_with_existing_email(self):
     #     # Create a user to test against

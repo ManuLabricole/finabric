@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from django.db import transaction
 
@@ -7,10 +8,10 @@ from .models import UserProfile
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     # Profile related fields
-    firstname = serializers.CharField(max_length=100)
-    lastname = serializers.CharField(max_length=100)
+    firstname = serializers.CharField(max_length=100, allow_null=True, required=True)
+    lastname = serializers.CharField(max_length=100, allow_null=True, required=True)
     birth_date = serializers.DateField(allow_null=True, required=False)
-    email = serializers.EmailField(max_length=100)
+    email = serializers.EmailField(max_length=100, allow_null=True, required=True)
     monthly_income = serializers.IntegerField(allow_null=True, required=False)
     monthly_expenses = serializers.IntegerField(allow_null=True, required=False)
     password = serializers.CharField(write_only=True)
