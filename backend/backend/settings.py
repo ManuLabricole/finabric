@@ -136,6 +136,9 @@ AUTH_PASSWORD_VALIDATORS = [
             "min_length": 8,
         },
     },
+    {
+        "NAME": "user_profile.validators.SpecialCharacterValidator",
+    },
 ]
 
 
