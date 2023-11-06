@@ -48,9 +48,11 @@ INSTALLED_APPS = [
     # Personal apps
     "rest_framework",  # Django REST framework
     "rest_framework_simplejwt.token_blacklist",  # Django REST framework JWT
+    # Django apps
+    "user_profile",  # User profile
 ]
 
-# Add Django REST framework authentication
+# Add Django REST framework specific settings
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication",
@@ -64,6 +66,13 @@ REST_FRAMEWORK = {
     "DEFAULT_PARSER_CLASSES": [
         "rest_framework.parsers.JSONParser",
     ],
+}
+
+# Add Django REST framework JWT specific settings
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": int(os.getenv("JWT_ACCESS_TOKEN_LIFETIME")),
+    "REFRESH_TOKEN_LIFETIME": int(os.getenv("JWT_REFRESH_TOKEN_LIFETIME")),
+    "ROTATE_REFRESH_TOKENS": True,
 }
 
 MIDDLEWARE = [
