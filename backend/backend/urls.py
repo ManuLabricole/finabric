@@ -24,6 +24,6 @@ urlpatterns = [
     path(
         "api/v1/user-profile/",
         include("user_profile.urls"),
-        name="user-profile-register",
+        name="user-profile",
     ),
 ]
