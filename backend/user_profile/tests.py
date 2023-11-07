@@ -39,7 +39,6 @@ class RegistrationTestCase(APITestCase):
             "email": "test@example.com",
             "firstname": "New",
             "lastname": "User",
-            # Include other fields required for UserProfile
         }
         response = self.client.post(
             reverse("register"),
@@ -56,7 +55,6 @@ class RegistrationTestCase(APITestCase):
             "email": "test@example.com",
             "firstname": "New",
             "lastname": "User",
-            # Include other fields required for UserProfile
         }
         response = self.client.post(
             reverse("register"), json.dumps(data), content_type="application/json"
@@ -64,8 +62,29 @@ class RegistrationTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertTrue("password" in response.data)
 
-    # def test_registration_with_no_special_charactere_password(self):
-    #     # Payload with no username
-    #     data = {
-    #         "password": "password",
-    #         "email": "
+    def test_registration_with_missing_fields(self):
+        # Payload with missing fields
+        data = {
+            "password": "password!",
+            "email": "user@gmail.com",
+            # Missing firstname and lastname
+        }
+        response = self.client.post(
+            reverse("register"), json.dumps(data), content_type="application/json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertTrue("firstname" in response.data)
+
+    def test_registration_without_special_characters_in_password(self):
+        # Payload with missing fields
+        data = {
+            "password": "Longpassword123",
+            "email": "test@example.com",
+            "firstname": "New",
+            "lastname": "User",
+        }
+        response = self.client.post(
+            reverse("register"), json.dumps(data), content_type="application/json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertTrue("password" in response.data)
