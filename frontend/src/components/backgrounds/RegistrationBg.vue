@@ -1,14 +1,10 @@
 <template>
-  <RegistrationBg/>
+  <div></div>
 </template>
 
 <script>
-import RegistrationBg from './components/backgrounds/RegistrationBg.vue'
 export default {
-  name: 'App',
-  components: {
-    RegistrationBg
-  },
+  name: 'RegistrationBg',
   data() {
     return {
       title: 'Hello World'

@@ -1,14 +1,11 @@
 <template>
-  <RegistrationBg/>
+  <h1>Hello World</h1>
+  <button @click="sayHello">Say Hello</button>
 </template>
 
 <script>
-import RegistrationBg from './components/backgrounds/RegistrationBg.vue'
 export default {
-  name: 'App',
-  components: {
-    RegistrationBg
-  },
+  name: 'RegistrationView',
   data() {
     return {
       title: 'Hello World'
