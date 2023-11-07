@@ -1,21 +1,13 @@
 <template>
+  <SignupBg />
   <h1>Hello World</h1>
-  <button @click="sayHello">Say Hello</button>
 </template>
 
 <script>
+import SignupBg from '@/components/backgrounds/SignupBg.vue'
 export default {
   name: 'SignupView',
-  data() {
-    return {
-      title: 'Hello World'
-    }
-  },
-  methods: {
-    sayHello() {
-      alert(this.title)
-    }
-  }
+  components: { SignupBg }
 }
 </script>
 

@@ -1,12 +1,10 @@
 <template>
-  <main>
-    <RouterView />
-  </main>
+  <div class="bg-grey h"></div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'RegistrationBg'
 }
 </script>
 
