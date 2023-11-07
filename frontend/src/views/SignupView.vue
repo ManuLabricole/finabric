@@ -5,7 +5,7 @@
 
 <script>
 export default {
-  name: 'RegistrationView',
+  name: 'SignupView',
   data() {
     return {
       title: 'Hello World'
