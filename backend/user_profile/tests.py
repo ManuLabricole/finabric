@@ -88,3 +88,21 @@ class RegistrationTestCase(APITestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertTrue("password" in response.data)
+
+    def test_user_and_userprofile_creation(self):
+        # Define a valid payload to send to the registration endpoint
+        data = {
+            "password": "Newpass123!",
+            "email": "newuser@example.com",
+            "firstname": "New",
+            "lastname": "User",
+        }
+        response = self.client.post(
+            reverse("register"),
+            json.dumps(data),
+            content_type="application/json",
+        )
+        user = User.objects.get(email="newuser@example.com")
+        self.assertEqual(user.username, "New_User")
+        user_profile = user.userprofile
+        self.assertEqual(user_profile.firstname, "New")
