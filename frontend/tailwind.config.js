@@ -1,6 +1,35 @@
 /** @type {import('tailwindcss').Config} */
 export const content = ['./index.html', './src/**/*.{js,vue}']
 export const theme = {
-  extend: {}
+  extend: {
+    colors: {
+      finaryYellow: {
+        50: '#FFF8F0', // lightest peach
+        100: '#FEEEDC',
+        200: '#FDDDC9',
+        300: '#FCCBB6',
+        400: '#FBBAa3',
+        500: '#F0C086', // base peach
+        600: '#D6A370',
+        700: '#BC865A',
+        800: '#A26944',
+        900: '#883C2E' // darkest peach
+      },
+      finaryBlue: {
+        50: '#E4E2EA', // lightest deep purple
+        100: '#C7C5D4',
+        200: '#AAA7BE',
+        300: '#8C8AA8',
+        400: '#6F6C92',
+        500: '#262043', // base deep purple
+        600: '#211B3B',
+        700: '#1C1633',
+        800: '#17112B',
+        900: '#120C23' // darkest deep purple
+      },
+      'background-yellow': '#F5F5DC',
+      'background-blue': '#ADD8E6'
+    }
+  }
 }
 export const plugins = []
