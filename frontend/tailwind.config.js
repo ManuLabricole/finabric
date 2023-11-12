@@ -27,10 +27,22 @@ export const theme = {
         800: '#17112B',
         900: '#120C23' // darkest deep purple
       },
-
       bg: {
         'top-gradient-yellow': '#2C2419',
         'top-gradient-blue': '#0B0A10'
+      },
+      text: {
+        primary: '#EDF0F4',
+        secondary: '#6E727A',
+        black: '#131314',
+        danger: '#E54948',
+        success: '#1EC090'
+      },
+      button: {
+        primary: '#EDF0F4',
+        secondary: '#262043',
+        google: '#3A83DD',
+        apple: '#FFFFFF'
       }
     }
   }
