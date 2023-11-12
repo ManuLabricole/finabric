@@ -27,8 +27,11 @@ export const theme = {
         800: '#17112B',
         900: '#120C23' // darkest deep purple
       },
-      'background-yellow': '#F5F5DC',
-      'background-blue': '#ADD8E6'
+
+      bg: {
+        'top-gradient-yellow': '#2C2419',
+        'top-gradient-blue': '#0B0A10'
+      }
     }
   }
 }

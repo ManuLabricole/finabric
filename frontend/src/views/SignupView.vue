@@ -1,6 +1,6 @@
 <template>
   <SignupBg />
-  <h1 class="bg-rose-300">Hello World</h1>
+  <!-- <h1 class="bg-rose-300">Hello World</h1> -->
 </template>
 
 <script>
@@ -10,3 +10,4 @@ export default {
   components: { SignupBg }
 }
 </script>
+<!-- <style postcss></style> -->
