@@ -21,7 +21,7 @@ export default {
   height: 100vh;
   background-color: #000000;
   overflow: hidden;
-  z-index: -1;
+  z-index: -50;
 }
 
 .transparency-bluring {
@@ -34,7 +34,7 @@ export default {
   /* -webkit-backdrop-filter: blur(150px); */
   background: rgba(0, 0, 0, 0.6);
   overflow: hidden;
-  z-index: 0;
+  z-index: -40;
 }
 
 .top-gradient {
@@ -50,7 +50,7 @@ export default {
     theme('colors.finaryBlue.500') 75%
   );
   border-radius: 50%;
-  z-index: -1;
+  z-index: -50;
 }
 
 .bottom-blue {
@@ -67,6 +67,6 @@ export default {
   );
   border-radius: 50%;
   transform: rotate(-10deg);
-  z-index: -1;
+  z-index: -50;
 }
 </style>
