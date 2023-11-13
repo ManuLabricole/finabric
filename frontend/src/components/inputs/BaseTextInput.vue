@@ -24,7 +24,7 @@
         'text-text-secondary': !isFocused && !value
       }"
       class="w-full h-12 p-0 pt-2 pb-1 m-0 bg-transparent text-text-primary ring-0 border-0 border-b focus:outline-none focus:ring-0 focus:border-finaryYellow-400 transition-colors duration-500 ease-in-out"
-      :placeholder="placeholder"
+      placeholder=""
     />
   </div>
 </template>
@@ -44,16 +44,12 @@ export default {
     type: {
       type: String,
       default: 'text' // Default input type is 'text'
-    },
-    placeholder: {
-      type: String,
-      default: ''
-    },
+    }
   },
   data() {
     return {
-        isFocused: false,
-        value: ''
+      isFocused: false,
+      value: ''
     }
   },
   methods: {
@@ -66,3 +62,12 @@ export default {
   }
 }
 </script>
+<style postcss scoped>
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: theme('colors.text.primary') !important;
+}
+</style>
