@@ -1,12 +1,13 @@
 <template>
-  <div class="w-full">
+  <div class="relative w-full">
     <label
       for="email"
       :class="{
-        'text-finaryYellow-500': isFocused,
-        'text-sm': isFocused
+        'text-finaryYellow-500': isFocused || email,
+        'text-sm': isFocused || email,
+        'transforme -translate-y-6': isFocused || email
       }"
-      class="w-full absolute transition-all pointer-events-none text-text-secondary text-lg font-semibold"
+      class="absolute left-0 top-50% h-full flex items-center pointer-events-none text-text-secondary text-lg font-normal transition-all duration-500 ease-in-out"
       >Votre email</label
     >
     <input
@@ -15,7 +16,13 @@
       v-model="email"
       @focus="isFocused = true"
       @blur="isFocused = false"
-      class="w-full bg-transparent ring-0 focus:ring-0 border-0 border-b-2 focus:border-finaryYellow-500 text-text-primary text-lg font-semibold focus:transition-all ease-in-out transition delay-200"
+      :class="{
+        'border-finaryYellow-500': isFocused || email,
+        'border-text-secondary': !isFocused && !email,
+        'text-finaryYellow-500': isFocused || email,
+        'text-text-secondary': !isFocused && !email
+      }"
+      class="w-full h-12 p-0 pt-2 pb-1 m-0 bg-transparent text-text-primary ring-0 border-0 border-b focus:outline-none focus:ring-0 focus:border-finaryYellow-400 transition-colors duration-500 ease-in-out"
       placeholder=""
     />
   </div>
@@ -32,9 +39,5 @@ export default {
   }
 }
 </script>
-<style postcss scoped>
-/* Additional styles if needed */
-label {
-  transition: all 0.5s ease;
-}
-</style>
+
+<style postcss scoped></style>
