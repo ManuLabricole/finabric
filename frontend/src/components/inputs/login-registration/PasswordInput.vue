@@ -1,5 +1,5 @@
 <template>
-  <div class="relative w-full mb-3">
+  <div class="relative w-full">
     <label
       for="password"
       :class="{
@@ -25,10 +25,24 @@
         <i :class="showPassword ? 'bi bi-eye font-medium' : 'bi bi-eye-slash'"></i>
       </button>
     </div>
-    <p :class="textClass">
-      <i v-if="validationMessage" class="bi bi-exclamation-circle"></i>
-      {{ validationMessage }}
-    </p>
+    <div v-if="validationState == 'error'" class="w-full absolute mt-2 ml-2">
+      <p class="flex text-sm text-danger h-full">
+        <i class="bi bi-exclamation-circle mr-2"></i>
+        {{ validationMessage }}
+      </p>
+    </div>
+    <div v-if="validationState == 'warning'" class="w-full absolute mt-2 ml-2">
+      <p class="flex text-sm text-warning h-full">
+        <i class="bi bi-exclamation-circle mr-2"></i>
+        {{ validationMessage }}
+      </p>
+    </div>
+    <div v-if="validationState == 'success'" class="w-full absolute mt-2 ml-2">
+      <p class="flex text-sm text-success h-full">
+        <i class="bi bi-exclamation-circle mr-2"></i>
+        {{ validationMessage }}
+      </p>
+    </div>
   </div>
 </template>
 
@@ -52,7 +66,7 @@ export default {
         case 'warning':
           return 'border-yellow-500'
         case 'error':
-          return 'border-red-500'
+          return 'border-danger'
         default:
           return 'border-text-secondary'
       }
@@ -60,13 +74,21 @@ export default {
     textClass() {
       switch (this.validationState) {
         case 'success':
-          return 'text-green-500'
+          return 'text-success'
         case 'warning':
-          return 'text-yellow-500'
+          return 'text-finaryYellow-400'
         case 'error':
-          return 'text-red-500'
+          return 'text-danger'
         default:
           return 'text-text-secondary'
+      }
+    }
+  },
+  watch: {
+    value(newValue) {
+      if (!newValue) {
+        this.validationState = 'neutral'
+        this.validationMessage = ''
       }
     }
   },
@@ -79,6 +101,29 @@ export default {
     },
     togglePasswordVisibility() {
       this.showPassword = !this.showPassword
+    },
+    validatePassword() {
+      const hasLength = this.value.length >= 8
+      const hasUppercase = /[A-Z]/.test(this.value)
+      const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(this.value)
+
+      if (!hasLength) {
+        this.validationState = 'error'
+        this.validationMessage = 'Le mot de passe doit comporter au moins 8 caractères.'
+      } else if (!hasUppercase) {
+        this.validationState = 'error'
+        this.validationMessage = 'Le mot de passe doit comporter au moins une majuscule.'
+      } else if (!hasSpecialChar) {
+        this.validationState = 'error'
+        this.validationMessage = 'Le mot de passe doit comporter au moins un caractère spécial.'
+      } else if (this.value.length < 12) {
+        this.validationState = 'warning'
+        this.validationMessage =
+          'Votre mot de passe pourrait être plus sécurisé en y ajoutant des caractères.'
+      } else {
+        this.validationState = 'success'
+        this.validationMessage = 'Beau travail, ceci est un excellent mot de passe.'
+      }
     }
   }
 }
