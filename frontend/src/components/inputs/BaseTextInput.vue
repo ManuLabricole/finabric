@@ -27,6 +27,14 @@
       placeholder=""
       @input="onInput"
     />
+    <div
+      v-if="validationMessage"
+      :class="validationClass"
+      class="absolute left-0 top-50% h-full flex items-center pointer-events-none text-lg font-normal transition-all duration-500 ease-in-out"
+    >
+      oui
+      {{ validationMessage }}
+    </div>
   </div>
 </template>
 
@@ -45,12 +53,39 @@ export default {
     type: {
       type: String,
       default: 'text' // Default input type is 'text'
-    }
+    },
+    validationState: {
+      type: String,
+      default: 'neutral' // 'success', 'error', or 'neutral'
+    },
+    validationMessage: String
   },
   data() {
     return {
       isFocused: false,
       value: ''
+    }
+  },
+  computed: {
+    validationClass() {
+      switch (this.validationState) {
+        case 'success':
+          return 'text-green-500'
+        case 'error':
+          return 'text-red-500'
+        default:
+          return ''
+      }
+    },
+    borderClass() {
+      switch (this.validationState) {
+        case 'success':
+          return 'border-green-500'
+        case 'error':
+          return 'border-red-500'
+        default:
+          return 'border-text-secondary'
+      }
     }
   },
   methods: {
