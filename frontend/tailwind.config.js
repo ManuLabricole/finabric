@@ -36,7 +36,8 @@ export const theme = {
         secondary: '#6E727A',
         black: '#131314',
         danger: '#E54948',
-        success: '#1EC090'
+        success: '#1EC090',
+        warning: '#F49352'
       },
       button: {
         primary: '#EDF0F4',

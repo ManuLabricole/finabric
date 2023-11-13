@@ -18,7 +18,7 @@
         v-model="value"
         @focus="isFocused = true"
         @blur="isFocused = false"
-        class="w-full h-12 p-0 pt-2 pb-1 m-0 bg-transparent text-text-primary ring-0 border-0 focus:outline-none focus:ring-0 focus:border-finaryYellow-400 transition-colors duration-500 ease-in-out"
+        class="w-full h-12 p-0 pt-2 pb-1 m-0 bg-transparent text-medium text-text-primary ring-0 border-0 focus:outline-none focus:ring-0 focus:border-finaryYellow-400 transition-colors duration-500 ease-in-out"
         placeholder=""
       />
       <button type="button" class="p-2 text-text-primary" @click="togglePasswordVisibility">
