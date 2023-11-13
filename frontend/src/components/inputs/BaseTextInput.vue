@@ -3,11 +3,11 @@
     <label
       :for="id"
       :class="{
-        'text-finaryYellow-500': isFocused || value,
+        // 'text-finaryYellow-500': isFocused || value,
         'text-sm': isFocused || value,
         'transform -translate-y-6': isFocused || value
       }"
-      class="absolute left-0 top-50% h-full flex items-center pointer-events-none text-text-secondary text-lg font-normal transition-all duration-500 ease-in-out"
+      class="absolute left-0 top-50% h-full flex items-center pointer-events-none text-secondary text-lg font-normal transition-all duration-500 ease-in-out"
     >
       {{ label }}
     </label>
@@ -23,7 +23,7 @@
         'text-finaryYellow-500': isFocused || value,
         'text-text-secondary': !isFocused && !value
       }"
-      class="w-full h-12 p-0 pt-2 pb-1 m-0 bg-transparent text-text-primary ring-0 border-0 border-b focus:outline-none focus:ring-0 focus:border-finaryYellow-400 transition-colors duration-500 ease-in-out"
+      class="w-full h-12 p-0 pt-2 pb-1 m-0 bg-transparent text-primary ring-0 border-0 border-b focus:outline-none focus:ring-0 focus:border-finaryYellow-400 transition-colors duration-500 ease-in-out"
       placeholder=""
       @input="onInput"
     />
@@ -107,6 +107,6 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
-  -webkit-text-fill-color: theme('colors.text.primary') !important;
+  -webkit-text-fill-color: theme('colors.primary') !important;
 }
 </style>
