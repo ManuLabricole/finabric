@@ -15,8 +15,6 @@ export default {
   data() {
     return {
       email: '',
-      password: ''
-      // Other data properties
     }
   },
   watch: {

@@ -25,6 +25,7 @@
       }"
       class="w-full h-12 p-0 pt-2 pb-1 m-0 bg-transparent text-text-primary ring-0 border-0 border-b focus:outline-none focus:ring-0 focus:border-finaryYellow-400 transition-colors duration-500 ease-in-out"
       placeholder=""
+      @input="onInput"
     />
   </div>
 </template>
@@ -58,6 +59,9 @@ export default {
     },
     blur() {
       this.isFocused = false
+    },
+    onInput($event) {
+      this.$emit('update:modelValue', $event.target.value)
     }
   }
 }
