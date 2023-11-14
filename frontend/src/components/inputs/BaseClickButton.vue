@@ -1,0 +1,39 @@
+<template>
+  <button :class="buttonClasses" :disabled="!isClickable" @click="handleClick">{{ label }}</button>
+</template>
+
+<script>
+export default {
+  name: 'BaseClickButton',
+  props: {
+    isClickable: {
+      type: Boolean,
+      default: true
+    },
+    label: {
+      type: String,
+      default: 'Click me'
+    }
+  },
+  computed: {
+    buttonClasses() {
+      return {
+        'w-full p-3 rounded-full bg-finaryYellow-500 hover:bg-finaryYellow-600 cursor-pointer':
+          this.isClickable,
+        'w-full p-3 rounded-full bg-gray-300 cursor-not-allowed': !this.isClickable
+      }
+    }
+  },
+  methods: {
+    handleClick() {
+      if (this.isClickable) {
+        this.$emit('clicked')
+      }
+    }
+  }
+}
+</script>
+
+<style lang="postcss" scoped>
+/* You can add additional scoped styles if needed */
+</style>

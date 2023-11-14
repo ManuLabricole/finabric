@@ -9,6 +9,12 @@
         <form class="bg-transparent shadow-md space-y-12" @submit.prevent="onFormSubmit">
           <!-- Form inputs and submit button -->
           <EmailInput @email-validated="handleEmailValidation" />
+          <BaseClickButton
+            id="registerEmailValidate"
+            label="Suivant"
+            :isClickable="emailValidationEnable"
+            @clicked="toggleDisplayInputs"
+          />
           <!-- <transition> -->
           <div key="additionalInputs" class="w-full flex align-items">
             <div class="w-1/2 mr-2">
@@ -45,14 +51,24 @@ import RegisterTop from '@/components/login-registration/RegisterTop.vue'
 import EmailInput from '@/components/inputs/login-registration/EmailInput.vue'
 import PasswordInput from '@/components/inputs/login-registration/PasswordInput.vue'
 import BaseTextInput from '@/components/inputs/BaseTextInput.vue'
+import BaseClickButton from '../components/inputs/BaseClickButton.vue'
 
 export default {
   name: 'SignupView',
-  components: { SignupBg, RightDesign, RegisterTop, EmailInput, PasswordInput, BaseTextInput },
+  components: {
+    SignupBg,
+    RightDesign,
+    RegisterTop,
+    EmailInput,
+    PasswordInput,
+    BaseTextInput,
+    BaseClickButton
+  },
   data() {
     return {
       isEmailValid: false,
-      email: ''
+      email: '',
+      emailValidationEnable: false
     }
   },
   watch: {
