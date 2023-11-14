@@ -25,21 +25,21 @@
         <i :class="showPassword ? 'bi bi-eye font-medium' : 'bi bi-eye-slash'"></i>
       </button>
     </div>
-    <div v-if="validationState == 'error'" class="w-full absolute mt-2 ml-2">
+    <div v-if="validationState == 'error'" class="w-full absolute mt-2">
       <p class="flex text-sm text-danger h-full">
         <i class="bi bi-exclamation-circle mr-2"></i>
         {{ validationMessage }}
       </p>
     </div>
-    <div v-if="validationState == 'warning'" class="w-full absolute mt-2 ml-2">
+    <div v-if="validationState == 'warning'" class="w-full absolute mt-2">
       <p class="flex text-sm text-warning h-full">
         <i class="bi bi-exclamation-circle mr-2"></i>
         {{ validationMessage }}
       </p>
     </div>
-    <div v-if="validationState == 'success'" class="w-full absolute mt-2 ml-2">
+    <div v-if="validationState == 'success'" class="w-full absolute mt-2">
       <p class="flex text-sm text-success h-full">
-        <i class="bi bi-exclamation-circle mr-2"></i>
+        <i class="bi bi-check-circle mr-2"></i>
         {{ validationMessage }}
       </p>
     </div>
