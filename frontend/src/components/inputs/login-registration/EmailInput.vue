@@ -22,6 +22,7 @@ export default {
   },
   data() {
     return {
+      wasFocused: false,
       email: '',
       validationState: 'neutral',
       validationClass: ''
@@ -29,6 +30,7 @@ export default {
   },
   watch: {
     email(newValue) {
+      this.wasFocused = true
       console.log('Email changed:', newValue)
       this.$emit('email-changed', newValue)
     }
