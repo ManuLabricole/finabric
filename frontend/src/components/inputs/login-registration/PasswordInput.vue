@@ -84,14 +84,6 @@ export default {
       }
     }
   },
-  // watch: {
-  //   value(newValue) {
-  //     if (!newValue) {
-  //       this.validationState = 'neutral'
-  //       this.validationMessage = ''
-  //     }
-  //   }
-  // },
   methods: {
     focus() {
       this.isFocused = true

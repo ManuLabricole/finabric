@@ -1,5 +1,5 @@
 <template>
-  <div class="relative w-full">
+  <div class="relative w-full" :class="borderClass">
     <label
       :for="id"
       :class="{
@@ -18,14 +18,15 @@
       @focus="isFocused = true"
       @blur="isFocused = false"
       :class="{
-        'border-finaryYellow-500': isFocused || value,
-        'border-text-secondary': !isFocused && !value,
-        'text-finaryYellow-500': isFocused || value,
-        'text-text-secondary': !isFocused && !value
+        'border-finaryYellow-500': isFocused || (value && validationState != 'error'),
+        'border-text-secondary': !isFocused && !value && validationState != 'error',
+        'text-finaryYellow-500': isFocused || (value && validationState != 'error'),
+        'text-text-secondary': !isFocused && !value && validationState != 'error',
+        'border-danger': validationState == 'error'
       }"
-      class="w-full h-12 p-0 pt-2 pb-1 m-0 bg-transparent text-primary ring-0 border-0 border-b focus:outline-none focus:ring-0 focus:border-finaryYellow-400 transition-colors duration-500 ease-in-out"
+      class="w-full h-12 p-0 pt-2 pb-1 m-0 bg-transparent text-primary ring-0 border-0 border-b focus:outline-none focus:ring-0 focus:border-finaryYellow-500 transition-colors duration-500 ease-in-out"
       placeholder=""
-      @input="onInput(value)"
+      @input="onInput(value, type)"
     />
     <div v-if="validationState == 'error'" class="w-full absolute mt-2">
       <p class="flex text-sm text-danger h-full">
@@ -62,18 +63,11 @@ export default {
     }
   },
   computed: {
-    validationClass() {
-      switch (this.validationState) {
-        case 'error':
-          return 'text-red-500'
-        default:
-          return ''
-      }
-    },
     borderClass() {
       switch (this.validationState) {
         case 'error':
-          return 'border-red-500'
+          console.log('error')
+          return 'border-danger'
         default:
           return 'border-text-secondary'
       }
@@ -86,9 +80,27 @@ export default {
     blur() {
       this.isFocused = false
     },
-    onInput(value) {
+    onInput(value, type) {
       if (value == '') {
         this.validationState = 'error'
+      } else {
+        if (type == 'email') {
+          // Regex from https://emailregex.com/
+          const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
+          if (emailRegex.test(value)) {
+            this.validationState = 'success'
+          } else {
+            this.validationState = 'error'
+          }
+        } else if (type == 'password') {
+          if (value.length < 8) {
+            this.validationState = 'error'
+          } else {
+            this.validationState = 'success'
+          }
+        } else if (type == 'text') {
+          this.validationState = 'success'
+        }
       }
     }
   }

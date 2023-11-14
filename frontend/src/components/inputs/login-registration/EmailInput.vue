@@ -6,7 +6,7 @@
       type="email"
       placeholder=""
       v-model="email"
-      validationState="validationState"
+      errorMessage="Veuillez entrer une adresse email valide"
       @keyup.enter="onEnter"
     />
     <!-- More inputs as needed -->
