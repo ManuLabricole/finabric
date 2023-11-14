@@ -31,25 +31,35 @@
             <div v-if="inputsDisplayed" key="additionalInputs" class="w-full flex align-items">
               <div class="w-1/2 mr-2">
                 <BaseTextInput
-                  id="lastname"
+                  id="firstname"
                   label="Prénom"
                   type="text"
                   errorMessage="Merci d'indiquer votre prénom"
+                  @input-unfocused="validateFirstname"
                 />
               </div>
               <div class="w-1/2 ml-2">
                 <BaseTextInput
-                  id="firstname"
+                  id="lastname"
                   type="text"
                   label="Nom"
                   errorMessage="Indiquez votre nom de famille"
+                  @input-unfocused="validateLastname"
                 />
               </div>
             </div>
           </transition>
           <transition>
-            <PasswordInput />
+            <PasswordInput v-if="inputsDisplayed" @input-unfocused="validatePassword" />
           </transition>
+          <div v-if="inputsDisplayed" class="w-full mt-5">
+            <BaseClickButton
+              id="registerEmailValidate"
+              label="Suivant"
+              :isClickable="formValidationEnable"
+              @clicked="submitForm"
+            />
+          </div>
         </form>
       </div>
     </div>
@@ -64,7 +74,7 @@ import RightDesign from '@/components/login-registration/RightDesign.vue'
 import RegisterTop from '@/components/login-registration/RegisterTop.vue'
 import PasswordInput from '@/components/inputs/login-registration/PasswordInput.vue'
 import BaseTextInput from '@/components/inputs/BaseTextInput.vue'
-import BaseClickButton from '../components/inputs/BaseClickButton.vue'
+import BaseClickButton from '@/components/inputs/BaseClickButton.vue'
 
 export default {
   name: 'SignupView',
@@ -78,10 +88,19 @@ export default {
   },
   data() {
     return {
-      isEmailValid: false,
       email: '',
+      firstname: '',
+      lastname: '',
+      password: '',
+
+      isEmailValid: false,
+      isFirstnameValid: false,
+      isLastnameValid: false,
+      isPasswordValid: false,
+
       emailValidationEnable: false,
-      inputsDisplayed: false
+      inputsDisplayed: false,
+      formValidationEnable: false
     }
   },
   watch: {
@@ -104,9 +123,41 @@ export default {
         // Email is valid
         console.log('Valid email:', email)
         this.emailValidationEnable = true
+        this.isEmailValid = true
       } else {
-        // Email is not valid
         console.log('Invalid email:', email)
+      }
+    },
+    validateFirstname(firstname) {
+      if (firstname == '') {
+        console.log('Invalid firstname:', firstname)
+      } else {
+        console.log('Valid firstname:', firstname)
+        this.firstname = firstname
+      }
+    },
+    validateLastname(lastname) {
+      if (lastname == '') {
+        console.log('Invalid lastname:', lastname)
+      } else {
+        console.log('Valid lastname:', lastname)
+        this.lastname = lastname
+      }
+    },
+    validatePassword(password, isValid) {
+      if (isValid) {
+        this.password = password
+        this.isPasswordValid = true
+      }
+    },
+    validateForm() {
+      if (
+        this.isEmailValid &&
+        this.isFirstnameValid &&
+        this.isLastnameValid &&
+        this.isPasswordValid
+      ) {
+        this.formValidationEnable = true
       }
     }
   }

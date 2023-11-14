@@ -16,7 +16,7 @@
         :type="showPassword ? 'text' : 'password'"
         v-model="value"
         @focus="isFocused = true"
-        @blur="isFocused = false"
+        @blur="handleBlur = false"
         @input="validatePassword"
         class="w-full h-12 p-0 pt-2 pb-1 m-0 bg-transparent text-medium text-primary ring-0 border-0 focus:outline-none focus:ring-0 focus:border-finaryYellow-400 transition-colors duration-500 ease-in-out"
         placeholder=""
@@ -88,8 +88,11 @@ export default {
     focus() {
       this.isFocused = true
     },
-    blur() {
+    handleBlur() {
       this.isFocused = false
+      if (this.validationState == 'success' || this.validationState == 'warning') {
+        this.$emit('input-unfocused', this.value)
+      }
     },
     togglePasswordVisibility() {
       this.showPassword = !this.showPassword
@@ -112,9 +115,11 @@ export default {
         this.validationState = 'warning'
         this.validationMessage =
           'Votre mot de passe pourrait être plus sécurisé en y ajoutant des caractères.'
+        this.$emit('input-unfocused', this.value, this.validationState)
       } else {
         this.validationState = 'success'
         this.validationMessage = 'Beau travail, ceci est un excellent mot de passe.'
+        this.$emit('input-unfocused', this.value, this.validationState)
       }
     }
   }
