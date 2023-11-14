@@ -8,7 +8,7 @@
         <RegisterTop />
         <form class="bg-transparent shadow-md space-y-12">
           <!-- Form inputs and submit button -->
-          <EmailInput />
+          <EmailInput @email-validated="handleEmailValidation" />
           <div class="w-full flex align-items">
             <div class="w-1/2 mr-2">
               <BaseTextInput id="lastname" label="Prénom" />
@@ -17,7 +17,7 @@
               <BaseTextInput id="firstname" label="Nom" />
             </div>
           </div>
-          <PasswordInput />
+          <PasswordInput v-if="isEmailValid" />
         </form>
       </div>
     </div>
@@ -36,7 +36,33 @@ import BaseTextInput from '@/components/inputs/BaseTextInput.vue'
 
 export default {
   name: 'SignupView',
-  components: { SignupBg, RightDesign, RegisterTop, EmailInput, PasswordInput, BaseTextInput }
+  components: { SignupBg, RightDesign, RegisterTop, EmailInput, PasswordInput, BaseTextInput },
+  data() {
+    return {
+      isEmailValid: false
+    }
+  },
+  watch: {
+    // We console log the value if changed
+    email: function (val) {
+      console.log(val)
+    }
+  },
+  methods: {
+    handleEmailValidation({ email, valid }) {
+      console.log(`Email: ${email}, Valid: ${valid}`)
+      // Here you can also set a property to show the next div if valid
+      if (valid) {
+        console.log('Valid email')
+        this.isEmailValid = true
+      } else {
+        console.log('Invalid email')
+        this.isEmailValid = false
+        // Perform the action for an invalid email
+      }
+    }
+    // ... other methods ...
+  }
 }
 </script>
 <style postcss></style>

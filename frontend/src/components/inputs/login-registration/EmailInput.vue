@@ -28,9 +28,9 @@ export default {
     }
   },
   watch: {
-    email(newValue) {
-      console.log('Email changed:', newValue)
-    }
+    // email(newValue) {
+    //   // console.log('Email changed:', newValue)
+    // }
   },
   methods: {
     onEnter() {
@@ -38,10 +38,10 @@ export default {
       const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
       if (emailRegex.test(this.email)) {
         this.validationState = 'success'
-        console.log('Email is valid')
+        this.$emit('email-validated', { email: this.email, valid: true })
       } else {
         this.validationState = 'error'
-        console.log('Email is invalid')
+        this.$emit('email-validated', { email: this.email, valid: false })
       }
     }
   }
