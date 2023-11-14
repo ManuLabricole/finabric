@@ -6,18 +6,22 @@
       <!-- Your form goes here -->
       <div class="w-full max-w-md space-y-6 m-10 p-5">
         <RegisterTop />
-        <form class="bg-transparent shadow-md space-y-12">
+        <form class="bg-transparent shadow-md space-y-12" @submit.prevent="onFormSubmit">
           <!-- Form inputs and submit button -->
-          <EmailInput @email-validated="handleEmailValidation" />
-          <div class="w-full flex align-items">
-            <div class="w-1/2 mr-2">
-              <BaseTextInput id="lastname" label="Prénom" />
+          <EmailInput @email-changed="handleEmail" @email-validated="handleEmailValidation" />
+          <transition>
+            <div key="additionalInputs" v-if="isEmailValid" class="w-full flex align-items">
+              <div class="w-1/2 mr-2">
+                <BaseTextInput id="lastname" label="Prénom" />
+              </div>
+              <div class="w-1/2 ml-2">
+                <BaseTextInput id="firstname" label="Nom" />
+              </div>
             </div>
-            <div class="w-1/2 ml-2">
-              <BaseTextInput id="firstname" label="Nom" />
-            </div>
-          </div>
-          <PasswordInput v-if="isEmailValid" />
+          </transition>
+          <transition>
+            <PasswordInput v-if="isEmailValid" />
+          </transition>
         </form>
       </div>
     </div>
@@ -39,7 +43,8 @@ export default {
   components: { SignupBg, RightDesign, RegisterTop, EmailInput, PasswordInput, BaseTextInput },
   data() {
     return {
-      isEmailValid: false
+      isEmailValid: false,
+      email: ''
     }
   },
   watch: {
@@ -55,9 +60,11 @@ export default {
       if (valid) {
         console.log('Valid email')
         this.isEmailValid = true
+        this.email = email
       } else {
         console.log('Invalid email')
         this.isEmailValid = false
+        this.email = ''
         // Perform the action for an invalid email
       }
     }
@@ -65,4 +72,14 @@ export default {
   }
 }
 </script>
-<style postcss></style>
+<style postcss>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+</style>

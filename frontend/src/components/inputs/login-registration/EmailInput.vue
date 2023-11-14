@@ -28,9 +28,10 @@ export default {
     }
   },
   watch: {
-    // email(newValue) {
-    //   // console.log('Email changed:', newValue)
-    // }
+    email(newValue) {
+      console.log('Email changed:', newValue)
+      this.$emit('email-changed', newValue)
+    }
   },
   methods: {
     onEnter() {
