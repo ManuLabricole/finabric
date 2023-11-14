@@ -4,7 +4,7 @@
     <!-- Left column for the form -->
     <div class="flex-1 flex justify-center pt-0 pr-6 pl-6 pb-4">
       <!-- Your form goes here -->
-      <div class="w-full max-w-md space-y-6 m-10">
+      <div class="w-full max-w-md space-y-6 m-10 p-5">
         <RegisterTop />
         <form class="bg-transparent shadow-md space-y-12">
           <!-- Form inputs and submit button -->
