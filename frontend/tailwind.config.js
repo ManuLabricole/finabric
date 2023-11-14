@@ -31,14 +31,15 @@ export const theme = {
         'top-gradient-yellow': '#2C2419',
         'top-gradient-blue': '#0B0A10'
       },
-      
+
       primary: '#EDF0F4',
       secondary: '#6E727A',
       black: '#131314',
       danger: '#E54948',
       success: '#1EC090',
       warning: '#F49352',
-      
+      disabled: '#1D1D1F',
+
       button: {
         primary: '#EDF0F4',
         secondary: '#262043',
