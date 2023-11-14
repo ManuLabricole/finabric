@@ -16,7 +16,7 @@
       :type="type"
       v-model="value"
       @focus="isFocused = true"
-      @blur="isFocused = false"
+      @blur="handleBlur"
       :class="{
         'border-finaryYellow-500': isFocused || (value && validationState != 'error'),
         'border-text-secondary': !isFocused && !value && validationState != 'error',
@@ -77,8 +77,11 @@ export default {
     focus() {
       this.isFocused = true
     },
-    blur() {
+    handleBlur() {
       this.isFocused = false
+      console.log("VALUE", this.value)
+      this.$emit('input-unfocused', this.value)
+      console.log('blur')
     },
     onInput(value, type) {
       if (value == '') {

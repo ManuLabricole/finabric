@@ -24,9 +24,9 @@
       </button>
     </div>
     <div class="flex items-center justify-center my-4">
-      <div class="flex-1 border-t border-text-secondary"></div>
+      <div class="flex-1 border-t border-secondary"></div>
       <span class="px-4 text-xs text-gray-600 uppercase">Ou s'inscrire par email</span>
-      <div class="flex-1 border-t border-text-secondary"></div>
+      <div class="flex-1 border-t border-secondary"></div>
     </div>
   </div>
 </template>

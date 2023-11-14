@@ -20,7 +20,7 @@ export default {
       return {
         'w-full p-3 rounded-full bg-finaryYellow-500 hover:bg-finaryYellow-600 cursor-pointer':
           this.isClickable,
-        'w-full p-3 rounded-full bg-gray-300 cursor-not-allowed': !this.isClickable
+        'w-full p-3 rounded-full bg-disabled text-secondary cursor-not-allowed': !this.isClickable
       }
     }
   },
