@@ -25,15 +25,13 @@
       }"
       class="w-full h-12 p-0 pt-2 pb-1 m-0 bg-transparent text-primary ring-0 border-0 border-b focus:outline-none focus:ring-0 focus:border-finaryYellow-400 transition-colors duration-500 ease-in-out"
       placeholder=""
-      @input="onInput"
+      @input="onInput(value)"
     />
-    <div
-      v-if="validationMessage"
-      :class="validationClass"
-      class="absolute left-0 top-50% h-full flex items-center pointer-events-none text-lg font-normal transition-all duration-500 ease-in-out"
-    >
-      oui
-      {{ validationMessage }}
+    <div v-if="validationState == 'error'" class="w-full absolute mt-2">
+      <p class="flex text-sm text-danger h-full">
+        <i class="bi bi-exclamation-circle mr-2"></i>
+        {{ errorMessage }}
+      </p>
     </div>
   </div>
 </template>
@@ -54,23 +52,18 @@ export default {
       type: String,
       default: 'text' // Default input type is 'text'
     },
-    validationState: {
-      type: String,
-      default: 'neutral' // 'success', 'error', or 'neutral'
-    },
-    validationMessage: String
+    errorMessage: String
   },
   data() {
     return {
       isFocused: false,
-      value: ''
+      value: '',
+      validationState: 'neutral' //'error'
     }
   },
   computed: {
     validationClass() {
       switch (this.validationState) {
-        case 'success':
-          return 'text-green-500'
         case 'error':
           return 'text-red-500'
         default:
@@ -79,8 +72,6 @@ export default {
     },
     borderClass() {
       switch (this.validationState) {
-        case 'success':
-          return 'border-green-500'
         case 'error':
           return 'border-red-500'
         default:
@@ -95,8 +86,10 @@ export default {
     blur() {
       this.isFocused = false
     },
-    onInput($event) {
-      this.$emit('update:modelValue', $event.target.value)
+    onInput(value) {
+      if (value == '') {
+        this.validationState = 'error'
+      }
     }
   }
 }

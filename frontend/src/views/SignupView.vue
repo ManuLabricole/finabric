@@ -4,24 +4,32 @@
     <!-- Left column for the form -->
     <div class="flex-1 flex justify-center pt-0 pr-6 pl-6 pb-4">
       <!-- Your form goes here -->
-      <div class="w-full max-w-md space-y-6 m-10 p-5">
+      <div class="w-full max-w-lg space-y-6 m-10 p-5">
         <RegisterTop />
         <form class="bg-transparent shadow-md space-y-12" @submit.prevent="onFormSubmit">
           <!-- Form inputs and submit button -->
-          <EmailInput @email-changed="handleEmail" @email-validated="handleEmailValidation" />
-          <transition>
-            <div key="additionalInputs" v-if="isEmailValid" class="w-full flex align-items">
-              <div class="w-1/2 mr-2">
-                <BaseTextInput id="lastname" label="Prénom" />
-              </div>
-              <div class="w-1/2 ml-2">
-                <BaseTextInput id="firstname" label="Nom" />
-              </div>
+          <EmailInput @email-validated="handleEmailValidation" />
+          <!-- <transition> -->
+          <div key="additionalInputs" class="w-full flex align-items">
+            <div class="w-1/2 mr-2">
+              <BaseTextInput
+                id="lastname"
+                label="Prénom"
+                errorMessage="Merci d'indiquer votre prénom"
+              />
             </div>
-          </transition>
-          <transition>
-            <PasswordInput v-if="isEmailValid" />
-          </transition>
+            <div class="w-1/2 ml-2">
+              <BaseTextInput
+                id="firstname"
+                label="Nom"
+                errorMessage="Indiquez votre nom de famille"
+              />
+            </div>
+          </div>
+          <!-- </transition> -->
+          <!-- <transition> -->
+          <PasswordInput />
+          <!-- </transition> -->
         </form>
       </div>
     </div>

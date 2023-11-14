@@ -28,13 +28,6 @@ export default {
       validationClass: ''
     }
   },
-  watch: {
-    email(newValue) {
-      this.wasFocused = true
-      console.log('Email changed:', newValue)
-      this.$emit('email-changed', newValue)
-    }
-  },
   methods: {
     onEnter() {
       // Regex from https://emailregex.com/
