@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex-1 hidden xl:block items-center justify-center p-4 bg-transparent border border-red-500"
+    class="flex-1 hidden xl:block items-center justify-center p-4 bg-transparent border-red-500"
   >
     <!-- Your design elements or picture goes here -->
     <div class="max-w-lg">

@@ -4,9 +4,9 @@
     <!-- Left column for the form -->
     <div class="flex-1 flex justify-center pt-0 pr-6 pl-6 pb-4">
       <!-- Your form goes here -->
-      <div class="w-full max-w-lg space-y-8 m-10 p-5">
+      <div class="w-full max-w-lg space-y-10 m-10 p-5">
         <RegisterTop />
-        <form class="bg-transparent shadow-md space-y-14" @submit.prevent="onFormSubmit">
+        <form class="bg-transparent shadow-md space-y-5" @submit.prevent="onFormSubmit">
           <!-- Form inputs and submit button -->
           <BaseTextInput
             id="emailInput"
@@ -17,7 +17,7 @@
             errorMessage="Veuillez entrer une adresse email valide"
             @inputChanged="validateEmail"
           />
-          <div v-if="!inputsDisplayed" class="w-full mt-5">
+          <div v-if="!inputsDisplayed" class="w-full">
             <transition>
               <BaseClickButton
                 id="registerEmailValidate"
@@ -52,15 +52,16 @@
           <transition>
             <PasswordInput v-if="inputsDisplayed" @inputChanged="validatePassword" />
           </transition>
-          <div v-if="inputsDisplayed" class="w-full mt-5">
-            <BaseClickButton
-              id="registerEmailValidate"
-              label="Suivant"
-              :isClickable="formValidationEnable"
-              @clicked="submitForm"
-            />
-          </div>
+          <br />
         </form>
+        <div v-if="inputsDisplayed" class="w-full mt-5">
+          <BaseClickButton
+            id="registerEmailValidate"
+            label="Suivant"
+            :isClickable="formValidationEnable"
+            @clicked="submitForm"
+          />
+        </div>
         <p class="text-xs text-secondary text-center pt-2">
           En vous inscrivant, vous acceptez les Conditions de service et Politique de
           confidentialité de Finary

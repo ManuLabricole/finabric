@@ -18,9 +18,9 @@ export default {
   computed: {
     buttonClasses() {
       return {
-        'w-full p-3 rounded-full bg-finaryYellow-500 hover:bg-finaryYellow-600 cursor-pointer transition-all duration-500':
+        'w-full p-3 rounded-full bg-finaryYellow-500 hover:bg-finaryYellow-600 cursor-pointer transition-all duration-300':
           this.isClickable,
-        'w-full p-3 rounded-full bg-disabled text-secondary cursor-not-allowed transition-all duration-500':
+        'w-full p-3 rounded-full bg-disabled text-secondary cursor-not-allowed transition-all duration-300':
           !this.isClickable
       }
     }

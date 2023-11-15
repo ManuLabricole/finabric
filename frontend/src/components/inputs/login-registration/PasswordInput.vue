@@ -16,7 +16,7 @@
         :type="showPassword ? 'text' : 'password'"
         v-model="value"
         @focus="isFocused = true"
-        @blur="handleBlur = false"
+        @blur="isFocused = false"
         @input="validatePassword"
         class="w-full h-12 p-0 pt-2 pb-1 m-0 bg-transparent text-medium text-primary ring-0 border-0 focus:outline-none focus:ring-0 focus:border-finaryYellow-400 transition-colors duration-500 ease-in-out"
         placeholder=""
@@ -68,32 +68,11 @@ export default {
         case 'error':
           return 'border-danger'
         default:
-          return 'border-text-secondary'
+          return 'border-secondary'
       }
     },
-    textClass() {
-      switch (this.validationState) {
-        case 'success':
-          return 'text-success'
-        case 'warning':
-          return 'text-finaryYellow-400'
-        case 'error':
-          return 'text-danger'
-        default:
-          return 'text-text-secondary'
-      }
-    }
   },
   methods: {
-    focus() {
-      this.isFocused = true
-    },
-    handleBlur() {
-      this.isFocused = false
-      if (this.validationState == 'success' || this.validationState == 'warning') {
-        this.$emit('input-unfocused', this.value)
-      }
-    },
     togglePasswordVisibility() {
       this.showPassword = !this.showPassword
     },
