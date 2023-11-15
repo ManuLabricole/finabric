@@ -116,32 +116,24 @@ export default {
     toggleDisplayInputs() {
       this.inputsDisplayed = !this.inputsDisplayed
     },
-    validateEmail(email) {
+    validateEmail(email, isValid) {
       // Your email validation logic goes here
-      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-      if (regex.test(email)) {
-        // Email is valid
-        console.log('Valid email:', email)
-        this.emailValidationEnable = true
+      if (isValid) {
+        this.email = email
         this.isEmailValid = true
-      } else {
-        console.log('Invalid email:', email)
+        this.emailValidationEnable = true
       }
     },
-    validateFirstname(firstname) {
-      if (firstname == '') {
-        console.log('Invalid firstname:', firstname)
-      } else {
-        console.log('Valid firstname:', firstname)
+    validateFirstname(firstname, isValid) {
+      if (isValid) {
         this.firstname = firstname
+        this.isFirstnameValid = true
       }
     },
-    validateLastname(lastname) {
-      if (lastname == '') {
-        console.log('Invalid lastname:', lastname)
-      } else {
-        console.log('Valid lastname:', lastname)
+    validateLastname(lastname, isValid) {
+      if (isValid) {
         this.lastname = lastname
+        this.isLastnameValid = true
       }
     },
     validatePassword(password, isValid) {
