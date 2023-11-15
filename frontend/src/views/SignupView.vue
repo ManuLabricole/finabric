@@ -4,9 +4,9 @@
     <!-- Left column for the form -->
     <div class="flex-1 flex justify-center pt-0 pr-6 pl-6 pb-4">
       <!-- Your form goes here -->
-      <div class="w-full max-w-lg space-y-6 m-10 p-5">
+      <div class="w-full max-w-lg space-y-8 m-10 p-5">
         <RegisterTop />
-        <form class="bg-transparent shadow-md space-y-12" @submit.prevent="onFormSubmit">
+        <form class="bg-transparent shadow-md space-y-14" @submit.prevent="onFormSubmit">
           <!-- Form inputs and submit button -->
           <BaseTextInput
             id="emailInput"
