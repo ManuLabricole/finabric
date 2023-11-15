@@ -7,7 +7,7 @@ from user_profile.views import UserRegistrationAPIView
 
 urlpatterns = [
     path(
-        "register/",
+        "auth/register/",
         UserRegistrationAPIView.as_view(),
         name="register",
     ),

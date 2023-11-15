@@ -36,6 +36,10 @@ CORS_ALLOWED_ORIGINS = [
     os.getenv("FRONTEND_HOST"),
 ]
 
+CRSF_TRUSTED_ORIGINS = [
+    os.environ["FRONTEND_HOST"],
+]
+
 # Application definition
 
 INSTALLED_APPS = [
