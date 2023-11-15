@@ -115,11 +115,11 @@ export default {
         this.validationState = 'warning'
         this.validationMessage =
           'Votre mot de passe pourrait être plus sécurisé en y ajoutant des caractères.'
-        this.$emit('input-unfocused', this.value, this.validationState)
+        this.$emit('inputChanged', this.value, this.validationState)
       } else {
         this.validationState = 'success'
         this.validationMessage = 'Beau travail, ceci est un excellent mot de passe.'
-        this.$emit('input-unfocused', this.value, this.validationState)
+        this.$emit('inputChanged', this.value, this.validationState)
       }
     }
   }

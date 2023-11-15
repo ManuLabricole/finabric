@@ -80,25 +80,25 @@ export default {
     handleBlur() {
       this.isFocused = false
       console.log('VALUE', this.value)
-      this.$emit('input-unfocused', this.value)
+      this.$emit('inputChanged', this.value)
       console.log('blur')
     },
     onInput(value, type) {
       if (value == '') {
         this.validationState = 'error'
-        this.$emit('input-unfocused', this.value, false)
+        this.$emit('inputChanged', this.value, false)
       } else {
         if (type == 'email') {
           const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
           if (emailRegex.test(value)) {
             this.validationState = 'success'
-            this.$emit('input-unfocused', this.value, true)
+            this.$emit('inputChanged', this.value, true)
           } else {
             this.validationState = 'error'
           }
         } else if (type == 'text') {
           this.validationState = 'success'
-          this.$emit('input-unfocused', this.value, true)
+          this.$emit('inputChanged', this.value, true)
         }
       }
     }

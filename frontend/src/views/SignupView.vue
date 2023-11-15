@@ -15,7 +15,7 @@
             placeholder=""
             v-model="email"
             errorMessage="Veuillez entrer une adresse email valide"
-            @input-unfocused="validateEmail"
+            @inputChanged="validateEmail"
           />
           <div v-if="!inputsDisplayed" class="w-full mt-5">
             <transition>
@@ -35,7 +35,7 @@
                   label="Prénom"
                   type="text"
                   errorMessage="Merci d'indiquer votre prénom"
-                  @input-unfocused="validateFirstname"
+                  @inputChanged="validateFirstname"
                 />
               </div>
               <div class="w-1/2 ml-2">
@@ -44,13 +44,13 @@
                   type="text"
                   label="Nom"
                   errorMessage="Indiquez votre nom de famille"
-                  @input-unfocused="validateLastname"
+                  @inputChanged="validateLastname"
                 />
               </div>
             </div>
           </transition>
           <transition>
-            <PasswordInput v-if="inputsDisplayed" @input-unfocused="validatePassword" />
+            <PasswordInput v-if="inputsDisplayed" @inputChanged="validatePassword" />
           </transition>
           <div v-if="inputsDisplayed" class="w-full mt-5">
             <BaseClickButton
@@ -61,6 +61,10 @@
             />
           </div>
         </form>
+        <p class="text-xs text-secondary text-center pt-2">
+          En vous inscrivant, vous acceptez les Conditions de service et Politique de
+          confidentialité de Finary
+        </p>
       </div>
     </div>
     <!-- Right column for pictures or design elements -->
@@ -110,8 +114,14 @@ export default {
     }
   },
   methods: {
-    onFormSubmit() {
-      console.log('Form submitted')
+    submitForm() {
+      const data = {
+        email: this.email,
+        firstname: this.firstname,
+        lastname: this.lastname,
+        password: this.password
+      }
+      console.log(data)
     },
     toggleDisplayInputs() {
       this.inputsDisplayed = !this.inputsDisplayed
@@ -123,24 +133,28 @@ export default {
         this.isEmailValid = true
         this.emailValidationEnable = true
       }
+      this.validateForm()
     },
     validateFirstname(firstname, isValid) {
       if (isValid) {
         this.firstname = firstname
         this.isFirstnameValid = true
       }
+      this.validateForm()
     },
     validateLastname(lastname, isValid) {
       if (isValid) {
         this.lastname = lastname
         this.isLastnameValid = true
       }
+      this.validateForm()
     },
     validatePassword(password, isValid) {
       if (isValid) {
         this.password = password
         this.isPasswordValid = true
       }
+      this.validateForm()
     },
     validateForm() {
       if (
