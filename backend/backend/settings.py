@@ -31,13 +31,13 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+# print(os.getenv("FRONTEND_HOST"))
 CORS_ALLOWED_ORIGINS = [
     os.getenv("FRONTEND_HOST"),
 ]
 
 CRSF_TRUSTED_ORIGINS = [
-    os.environ["FRONTEND_HOST"],
+    os.getenv("FRONTEND_HOST"),
 ]
 
 # Application definition
@@ -52,11 +52,24 @@ INSTALLED_APPS = [
     # Personal apps
     "rest_framework",  # Django REST framework
     "rest_framework_simplejwt.token_blacklist",  # Django REST framework JWT
+    "corsheaders",  # Django CORS headers
     # Django apps
     "user_profile",  # User profile
 ]
 
 # Add Django REST framework specific settings
+MIDDLEWARE = [
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # Add Django CORS headers middleware
+    "corsheaders.middleware.CorsMiddleware",
+]
+
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication",
@@ -79,15 +92,6 @@ SIMPLE_JWT = {
     "ROTATE_REFRESH_TOKENS": True,
 }
 
-MIDDLEWARE = [
-    "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
-]
 
 ROOT_URLCONF = "backend.urls"
 

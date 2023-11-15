@@ -15,7 +15,7 @@ import { faFontAwesome } from '@fortawesome/free-brands-svg-icons'
 // Add icons to the library
 library.add(faUserSecret, faFontAwesome)
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000/api/'
+axios.defaults.baseURL = 'http://127.0.0.1:8000/'
 
 const app = createApp(App)
 

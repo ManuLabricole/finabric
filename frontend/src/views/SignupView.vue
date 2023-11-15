@@ -125,14 +125,13 @@ export default {
         password: this.password
       }
       axios
-        .post('v1/user/auth/register', data)
+        .post('api/v1/user/auth/register/', data)
         .then((response) => {
           console.log(response)
         })
         .catch((error) => {
           console.log(error)
         })
-
     },
     toggleDisplayInputs() {
       this.inputsDisplayed = !this.inputsDisplayed
