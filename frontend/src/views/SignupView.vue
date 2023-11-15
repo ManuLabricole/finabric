@@ -81,6 +81,8 @@ import PasswordInput from '@/components/inputs/login-registration/PasswordInput.
 import BaseTextInput from '@/components/inputs/BaseTextInput.vue'
 import BaseClickButton from '@/components/inputs/BaseClickButton.vue'
 
+import axios from 'axios'
+
 export default {
   name: 'SignupView',
   components: {
@@ -122,7 +124,15 @@ export default {
         lastname: this.lastname,
         password: this.password
       }
-      console.log(data)
+      axios
+        .post('v1/user/auth/register', data)
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+
     },
     toggleDisplayInputs() {
       this.inputsDisplayed = !this.inputsDisplayed
