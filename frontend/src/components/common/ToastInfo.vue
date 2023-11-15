@@ -1,14 +1,25 @@
 <template>
   <div
-    v-if="store.isVisible"
-    class="transition ease-in-out delay-500 duration-500 px-6 py-6 fixed top-full right-8 rounded-xl shadow-xl"
-    :class="store.classes"
+    class="flex items-center justify-center rounded-full bg-success border-2 border-green-700 p-2"
   >
-    {{ store.message }}
+    <span class="text-3xl mr-2">🎉</span>
+    <!-- Increase emoji size with text-3xl -->
+    <div class="mx-2">Félicitations ! Ton compte a été créé</div>
+    <!-- Add some margin for spacing -->
+    <span class="text-3xl ml-2">🎉</span>
+    <!-- Increase emoji size with text-3xl -->
   </div>
 </template>
 
-<script setup>
+<script>
 import { useToastStore } from '@/stores/toast'
-const store = useToastStore()
+export default {
+  name: 'ToastInfo',
+  setup() {
+    const toastStore = useToastStore()
+    return { toastStore }
+  }
+}
 </script>
+
+<style postcss scoped></style>
