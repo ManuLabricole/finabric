@@ -2,7 +2,7 @@
   <transition name="toast-slide">
     <div v-if="toastStore.isVisible" class="r">
       <div
-        class="inline-flex items-center justify-between rounded-lg p-3 bg-success border-2 border-green-700"
+        class="inline-flex items-center justify-between rounded-lg p-3 w-full bg-success border-2 border-green-700"
         :style="toastStore.showAnimation ? 'transform: translateY(0); opacity: 1;' : ''"
       >
         <div class="flex items-center">

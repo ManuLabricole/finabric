@@ -62,6 +62,7 @@
             @clicked="submitForm"
           />
         </div>
+        <ToastInfo />
         <p class="text-xs text-secondary text-center pt-2">
           En vous inscrivant, vous acceptez les Conditions de service et Politique de
           confidentialité de Finary
@@ -81,7 +82,10 @@ import PasswordInput from '@/components/inputs/login-registration/PasswordInput.
 import BaseTextInput from '@/components/inputs/BaseTextInput.vue'
 import BaseClickButton from '@/components/inputs/BaseClickButton.vue'
 
-import axios from 'axios'
+import ToastInfo from '@/components/common/ToastInfo.vue'
+import { useToastStore } from '@/stores/toast'
+
+// import axios from 'axios'
 
 export default {
   name: 'SignupView',
@@ -91,7 +95,13 @@ export default {
     RegisterTop,
     PasswordInput,
     BaseTextInput,
-    BaseClickButton
+    BaseClickButton,
+    ToastInfo
+  },
+  setup() {
+    const toastStore = useToastStore()
+
+    return { toastStore }
   },
   data() {
     return {
@@ -118,20 +128,22 @@ export default {
   },
   methods: {
     submitForm() {
-      const data = {
-        email: this.email,
-        firstname: this.firstname,
-        lastname: this.lastname,
-        password: this.password
-      }
-      axios
-        .post('api/v1/user/auth/register/', data)
-        .then((response) => {
-          console.log(response)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+      // const data = {
+      //   email: this.email,
+      //   firstname: this.firstname,
+      //   lastname: this.lastname,
+      //   password: this.password
+      // }
+      // axios
+      //   .post('api/v1/user/auth/register/', data)
+      //   .then((response) => {
+      //     console.log(response)
+      //   })
+      //   .catch((error) => {
+      //     console.log(error)
+      //   })
+      this.toastStore.showToast('inf', 'Félicitations ! Ton compte a été créé')
+      this.$router.push('/login')
     },
     toggleDisplayInputs() {
       this.inputsDisplayed = !this.inputsDisplayed
@@ -179,6 +191,7 @@ export default {
   }
 }
 </script>
+
 <style postcss>
 .v-enter-active,
 .v-leave-active {

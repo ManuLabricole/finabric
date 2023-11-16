@@ -28,6 +28,9 @@ export const useToastStore = defineStore({
           this.isVisible = false
         }, this.ms)
       }
+    },
+    hideToast() {
+      this.isVisible = false
     }
   }
 })
