@@ -89,7 +89,7 @@ export const useUserStore = defineStore('user', {
     // Action to refresh the access token using the refresh token.
     refreshToken() {
       axios
-        .post('/api/v1/refresh/', {
+        .post('/api/v1/auth/refresh/', {
           refresh: this.user.refresh
         })
         .then((response) => {
@@ -112,36 +112,35 @@ export const useUserStore = defineStore('user', {
     },
     // Action to login the user.
     login(email, password) {
-        // console.log('login', email, password)
-        // Start loading.
-        this.startLoading()
-    
-        // Make the login request.
-        axios
-            .post('/api/v1/login/', {
-            email: email,
-            password: password
-            })
-            .then((response) => {
-            // console.log(response)
-    
-            // Set the user tokens.
-            this.setToken(response.data)
-    
-            // Get the user information.
-            this.getUserInfo()
-    
-            // Stop loading.
-            this.endLoading()
-            })
-            .catch((error) => {
-            console.log(error)
-    
-            // Stop loading.
-            this.endLoading()
-            })
-        },
-    
+      // console.log('login', email, password)
+      // Start loading.
+      this.startLoading()
+
+      // Make the login request.
+      axios
+        .post('/api/v1/auth/login/', {
+          email: email,
+          password: password
+        })
+        .then((response) => {
+          // console.log(response)
+
+          // Set the user tokens.
+          this.setToken(response.data)
+
+          // Get the user information.
+          this.getUserInfo()
+
+          // Stop loading.
+          this.endLoading()
+        })
+        .catch((error) => {
+          console.log(error)
+
+          // Stop loading.
+          this.endLoading()
+        })
+    }
   },
   mutations: {
     startLoading(state) {

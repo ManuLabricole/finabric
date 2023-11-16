@@ -10,7 +10,10 @@
     >
       Mot de passe
     </label>
-    <div :class="borderClass" class="flex items-center border-b border-text-secondary transition-colors duration-500">
+    <div
+      :class="borderClass"
+      class="flex items-center border-b border-text-secondary transition-colors duration-500"
+    >
       <input
         :id="id"
         :type="showPassword ? 'text' : 'password'"
@@ -71,7 +74,7 @@ export default {
   computed: {
     borderClass() {
       if (this.isFocused && !this.showMessage) return 'border-finaryYellow-500'
-      else {
+      else if (this.showMessage) {
         switch (this.validationState) {
           case 'success':
             return 'border-finaryYellow-500'
@@ -82,7 +85,7 @@ export default {
           default:
             return 'border-secondary'
         }
-      }
+      } else return 'border-secondary'
     }
   },
   methods: {

@@ -78,30 +78,19 @@ export default {
     return {
       email: '',
       password: '',
-
-      isEmailValid: false,
-      isFirstnameValid: false,
-      isLastnameValid: false,
-      isPasswordValid: false,
-
-      emailValidationEnable: false,
       inputsFilled: false,
-      formValidationEnable: false
+      erros: []
     }
   },
   watch: {
     // We console log the value if changed
-    email: function (val) {
-      console.log(val)
-    }
+    inputsFilled: {}
   },
   methods: {
     validateEmail(email, isValid) {
       // Your email validation logic goes here
       if (isValid) {
         this.email = email
-        this.isEmailValid = true
-        this.emailValidationEnable = true
       }
       this.validateForm()
     },
@@ -110,7 +99,14 @@ export default {
         this.password = password
         this.isPasswordValid = true
       }
-      this.validateForm()
+      // this.validateForm()
+    },
+    validateForm() {
+      if (this.email != '' && this.password != '') {
+        this.inputsFilled = true
+      } else {
+        this.inputsFilled = false
+      }
     },
     submitForm() {
       // const data = {
