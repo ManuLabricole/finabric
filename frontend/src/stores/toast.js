@@ -7,26 +7,27 @@ export const useToastStore = defineStore({
     ms: 0,
     message: '',
     classes: '',
-    isVisible: true
+    isVisible: false
   }),
 
   actions: {
-    // showToast(ms, message, classes) {
-    //   console.log('toast show ')
-    //   this.ms = parseInt(ms)
-    //   this.message = message
-    //   this.classes = classes
-    //   this.isVisible = true
-    //   setTimeout(() => {
-    //     this.classes += ' -translate-y-28'
-    //   }, 10)
-    //   setTimeout(() => {
-    //     this.classes = this.classes.replace('-translate-y-28', '')
-    //   }, this.ms - 500)
-    //   setTimeout(() => {
-    //     console.log('toast hide ')
-    //     this.isVisible = false
-    //   }, this.ms)
-    // }
+    showToast(ms, message) {
+      console.log('toast show ')
+
+      if (ms === 'inf') {
+        // Infinite duration, don't automatically hide the toast
+        this.isVisible = true
+      } else {
+        this.ms = parseInt(ms)
+        this.message = message
+        this.isVisible = true
+
+        // Additional logic for hiding the toast after a specific duration
+        setTimeout(() => {
+          console.log('toast hide ')
+          this.isVisible = false
+        }, this.ms)
+      }
+    }
   }
 })
