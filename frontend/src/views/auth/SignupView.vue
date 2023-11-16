@@ -9,7 +9,7 @@
           title="Créer mon compte"
           subtitle="J'ai déjà un compte."
           anchorText="Se connecter"
-          anchorLink="/api/v1/login"
+          anchorLink="login"
           breakText="OU S'INSCRIRE PAR EMAIL"
         />
         <form class="bg-transparent shadow-md space-y-5" @submit.prevent="onFormSubmit">
@@ -58,7 +58,7 @@
           <transition>
             <PasswordInput
               :id="passwordRegister"
-              :showMessage=true
+              :showMessage="true"
               v-if="inputsDisplayed"
               @inputChanged="validatePassword"
             />
