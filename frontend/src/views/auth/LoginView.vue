@@ -23,55 +23,24 @@
             errorMessage="Veuillez entrer une adresse email valide"
             @inputChanged="validateEmail"
           />
-          <div v-if="!inputsDisplayed" class="w-full">
-            <transition>
-              <BaseClickButton
-                id="registerEmailValidate"
-                label="Suivant"
-                :isClickable="emailValidationEnable"
-                @clicked="toggleDisplayInputs"
-              />
-            </transition>
-          </div>
+
           <transition>
-            <div v-if="inputsDisplayed" key="additionalInputs" class="w-full flex align-items">
-              <div class="w-1/2 mr-2">
-                <BaseTextInput
-                  id="firstname"
-                  label="Prénom"
-                  type="text"
-                  errorMessage="Merci d'indiquer votre prénom"
-                  @inputChanged="validateFirstname"
-                />
-              </div>
-              <div class="w-1/2 ml-2">
-                <BaseTextInput
-                  id="lastname"
-                  type="text"
-                  label="Nom"
-                  errorMessage="Indiquez votre nom de famille"
-                  @inputChanged="validateLastname"
-                />
-              </div>
-            </div>
-          </transition>
-          <transition>
-            <PasswordInput v-if="inputsDisplayed" @inputChanged="validatePassword" />
+            <PasswordInput showMessage="false" @inputChanged="validatePassword" />
           </transition>
           <br />
         </form>
-        <div v-if="inputsDisplayed" class="w-full mt-5">
+        <div class="w-full mt-5">
           <BaseClickButton
             id="registerEmailValidate"
             label="Suivant"
-            :isClickable="formValidationEnable"
+            :isClickable="inputsFilled"
             @clicked="submitForm"
           />
         </div>
-        <ToastInfo />
-        <p class="text-xs text-secondary text-center pt-2">
-          En vous inscrivant, vous acceptez les Conditions de service et Politique de
-          confidentialité de Finary
+        <p
+          class="flex justify-center mt-5 text-sm text-finaryYellow-500 hover:text-finaryYellow-700"
+        >
+          <a href="">Mot de passe oublié ?</a>
         </p>
       </div>
     </div>
@@ -88,9 +57,6 @@ import PasswordInput from '@/components/inputs/login-registration/PasswordInput.
 import BaseTextInput from '@/components/inputs/BaseTextInput.vue'
 import BaseClickButton from '@/components/inputs/BaseClickButton.vue'
 
-import ToastInfo from '@/components/common/ToastInfo.vue'
-import { useToastStore } from '@/stores/toast'
-
 // import axios from 'axios'
 
 export default {
@@ -101,19 +67,12 @@ export default {
     RegisterTop,
     PasswordInput,
     BaseTextInput,
-    BaseClickButton,
-    ToastInfo
+    BaseClickButton
   },
-  setup() {
-    const toastStore = useToastStore()
-
-    return { toastStore }
-  },
+  setup() {},
   data() {
     return {
       email: '',
-      firstname: '',
-      lastname: '',
       password: '',
 
       isEmailValid: false,
@@ -122,7 +81,7 @@ export default {
       isPasswordValid: false,
 
       emailValidationEnable: false,
-      inputsDisplayed: false,
+      inputsFilled: false,
       formValidationEnable: false
     }
   },
@@ -133,6 +92,22 @@ export default {
     }
   },
   methods: {
+    validateEmail(email, isValid) {
+      // Your email validation logic goes here
+      if (isValid) {
+        this.email = email
+        this.isEmailValid = true
+        this.emailValidationEnable = true
+      }
+      this.validateForm()
+    },
+    validatePassword(password, isValid) {
+      if (isValid) {
+        this.password = password
+        this.isPasswordValid = true
+      }
+      this.validateForm()
+    },
     submitForm() {
       // const data = {
       //   email: this.email,
@@ -153,46 +128,6 @@ export default {
     },
     toggleDisplayInputs() {
       this.inputsDisplayed = !this.inputsDisplayed
-    },
-    validateEmail(email, isValid) {
-      // Your email validation logic goes here
-      if (isValid) {
-        this.email = email
-        this.isEmailValid = true
-        this.emailValidationEnable = true
-      }
-      this.validateForm()
-    },
-    validateFirstname(firstname, isValid) {
-      if (isValid) {
-        this.firstname = firstname
-        this.isFirstnameValid = true
-      }
-      this.validateForm()
-    },
-    validateLastname(lastname, isValid) {
-      if (isValid) {
-        this.lastname = lastname
-        this.isLastnameValid = true
-      }
-      this.validateForm()
-    },
-    validatePassword(password, isValid) {
-      if (isValid) {
-        this.password = password
-        this.isPasswordValid = true
-      }
-      this.validateForm()
-    },
-    validateForm() {
-      if (
-        this.isEmailValid &&
-        this.isFirstnameValid &&
-        this.isLastnameValid &&
-        this.isPasswordValid
-      ) {
-        this.formValidationEnable = true
-      }
     }
   }
 }

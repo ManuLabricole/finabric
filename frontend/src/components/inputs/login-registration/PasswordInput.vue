@@ -18,26 +18,26 @@
         @focus="isFocused = true"
         @blur="isFocused = false"
         @input="validatePassword"
-        class="w-full h-12 p-0 pt-2 pb-1 m-0 bg-transparent text-medium text-primary ring-0 border-0 focus:outline-none focus:ring-0 focus:border-finaryYellow-400 transition-colors duration-500 ease-in-out"
+        class="w-full h-12 p-0 pt-2 pb-1 m-0 bg-transparent text-medium text-primary ring-0 border-0 focus:outline-none focus:ring-0 focus:border-finaryYellow-500 transition-colors duration-500 ease-in-out"
         placeholder=""
       />
       <button type="button" class="p-2 text-primary" @click="togglePasswordVisibility">
         <i :class="showPassword ? 'bi bi-eye font-medium' : 'bi bi-eye-slash'"></i>
       </button>
     </div>
-    <div v-if="validationState == 'error'" class="w-full absolute mt-2">
+    <div v-if="validationState == 'error' && showMessage == true" class="w-full absolute mt-2">
       <p class="flex text-sm text-danger h-full">
         <i class="bi bi-exclamation-circle mr-2"></i>
         {{ validationMessage }}
       </p>
     </div>
-    <div v-if="validationState == 'warning'" class="w-full absolute mt-2">
+    <div v-if="validationState == 'warning' && showMessage == true" class="w-full absolute mt-2">
       <p class="flex text-sm text-warning h-full">
         <i class="bi bi-exclamation-circle mr-2"></i>
         {{ validationMessage }}
       </p>
     </div>
-    <div v-if="validationState == 'success'" class="w-full absolute mt-2">
+    <div v-if="validationState == 'success' && showMessage == true" class="w-full absolute mt-2">
       <p class="flex text-sm text-success h-full">
         <i class="bi bi-check-circle mr-2"></i>
         {{ validationMessage }}
@@ -49,6 +49,16 @@
 <script>
 export default {
   name: 'PasswordInput',
+  props: {
+    id: {
+      type: String,
+      required: true
+    },
+    showMessage: {
+      type: Boolean,
+      default: true
+    }
+  },
   data() {
     return {
       isFocused: false,
@@ -64,13 +74,15 @@ export default {
         case 'success':
           return 'border-finaryYellow-500'
         case 'warning':
-          return 'border-yellow-500'
+          if (this.showMessage == 'false') return 'border-finaryYellow-500'
+          else return 'border-warning'
         case 'error':
-          return 'border-danger'
+          if (this.showMessage == 'false') return 'border-finaryYellow-500'
+          else return 'border-danger'
         default:
           return 'border-secondary'
       }
-    },
+    }
   },
   methods: {
     togglePasswordVisibility() {
