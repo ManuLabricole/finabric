@@ -1,14 +1,11 @@
-from django.test import TestCase
-
-# Create your tests here.
-# tests.py in your user_profile app
-
 import json
 
+from django.test import TestCase
 from django.urls import reverse
 from rest_framework.test import APITestCase
 from rest_framework import status
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 
 
 class RegistrationTestCase(APITestCase):
@@ -106,3 +103,33 @@ class RegistrationTestCase(APITestCase):
         self.assertEqual(user.username, "New_User")
         user_profile = user.userprofile
         self.assertEqual(user_profile.firstname, "New")
+
+
+class EmailAuthBackendTest(TestCase):
+    def setUp(self):
+        # Create a test user
+        self.user = User.objects.create_user(
+            username="testuser", email="test@example.com", password="testpassword123"
+        )
+
+    def test_authenticate_with_email(self):
+        # Test authenticating with email
+        user = authenticate(username="test@example.com", password="testpassword123")
+        self.assertIsNotNone(user)
+        self.assertEqual(user.email, "test@example.com")
+
+    def test_authenticate_with_username(self):
+        # Test authenticating with username
+        user = authenticate(username="testuser", password="testpassword123")
+        self.assertIsNotNone(user)
+        self.assertEqual(user.username, "testuser")
+
+    def test_authenticate_with_incorrect_email(self):
+        # Test failure with incorrect email
+        user = authenticate(username="wrong@example.com", password="testpassword123")
+        self.assertIsNone(user)
+
+    def test_authenticate_with_incorrect_password(self):
+        # Test failure with incorrect password
+        user = authenticate(username="test@example.com", password="wrongpassword")
+        self.assertIsNone(user)
