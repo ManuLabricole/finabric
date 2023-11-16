@@ -5,12 +5,15 @@
     </div>
     <div class="mb-8 mt-8">
       <h1 class="text-white text-4xl font-normal tracking-wider mb-1">{{ title }}</h1>
-      <span class="text-gray-500 font-small"
+      <span class="flex align-center text-gray-500 font-small"
         >{{ subtitle }}
-        <a class="text-finaryYellow-500 hover:text-finaryYellow-600" href="/"
-          >{{ anchorText }}
-        </a></span
-      >
+        <router-link
+          :to="anchorLink"
+          class="ml-2 text-finaryYellow-500 hover:text-finaryYellow-600"
+        >
+          {{ anchorText }}<i class="bi bi-caret-right-fill ml-2"></i>
+        </router-link>
+      </span>
     </div>
     <!-- Button connexion Apple / Google -->
     <div class="flex flex-col w-full space-y-2">

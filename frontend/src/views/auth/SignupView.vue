@@ -6,10 +6,10 @@
       <!-- Your form goes here -->
       <div class="w-full max-w-lg space-y-10 m-10 p-5">
         <RegisterTop
-          title="Inscription"
-          subtitle="Déjà inscrit ?"
-          anchorText="Connecte-toi"
-          anchorLink="/login"
+          title="Créer mon compte"
+          subtitle="J'ai déjà un compte."
+          anchorText="Se connecter"
+          anchorLink="api/v1/login"
           breakText="ou"
         />
         <form class="bg-transparent shadow-md space-y-5" @submit.prevent="onFormSubmit">

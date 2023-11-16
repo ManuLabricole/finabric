@@ -5,7 +5,13 @@
     <div class="flex-1 flex justify-center pt-0 pr-6 pl-6 pb-4">
       <!-- Your form goes here -->
       <div class="w-full max-w-lg space-y-10 m-10 p-5">
-        <RegisterTop />
+        <RegisterTop
+          title="Se connecter"
+          subtitle="Vous n'avez pas encore de compte ?"
+          anchorText="S'incrire"
+          anchorLink="api/v1/signup"
+          breakText="OU SE CONNECTER PAR EMAIL"
+        />
         <form class="bg-transparent shadow-md space-y-5" @submit.prevent="onFormSubmit">
           <!-- Form inputs and submit button -->
           <BaseTextInput

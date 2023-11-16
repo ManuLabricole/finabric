@@ -14,10 +14,11 @@ const router = createRouter({
     },
     {
       path: '/api/v1/login',
-      name: 'signup',
+      name: 'login',
       component: () => import('../views/auth/LoginView.vue')
     }
-  ]
+  ],
+  
 })
 
 export default router
