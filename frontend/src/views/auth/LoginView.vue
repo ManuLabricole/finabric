@@ -61,6 +61,8 @@ import PasswordInput from '@/components/inputs/login-registration/PasswordInput.
 import BaseTextInput from '@/components/inputs/BaseTextInput.vue'
 import BaseClickButton from '@/components/inputs/BaseClickButton.vue'
 
+import { useUserStore } from '@/store/user'
+
 // import axios from 'axios'
 
 export default {
@@ -73,7 +75,13 @@ export default {
     BaseTextInput,
     BaseClickButton
   },
-  setup() {},
+  setup() {
+    const userStore = useUserStore()
+
+    return {
+      userStore
+    }
+  },
   data() {
     return {
       email: '',
@@ -81,10 +89,6 @@ export default {
       inputsFilled: false,
       erros: []
     }
-  },
-  watch: {
-    // We console log the value if changed
-    inputsFilled: {}
   },
   methods: {
     validateEmail(email, isValid) {
@@ -99,7 +103,7 @@ export default {
         this.password = password
         this.isPasswordValid = true
       }
-      // this.validateForm()
+      this.validateForm()
     },
     validateForm() {
       if (this.email != '' && this.password != '') {
@@ -107,14 +111,14 @@ export default {
       } else {
         this.inputsFilled = false
       }
+      console.log(this.inputsFilled)
     },
     submitForm() {
-      // const data = {
-      //   email: this.email,
-      //   firstname: this.firstname,
-      //   lastname: this.lastname,
-      //   password: this.password
-      // }
+      const data = {
+        email: this.email,
+        password: this.password
+      }
+      console.log(data)
       // axios
       //   .post('api/v1/user/auth/register/', data)
       //   .then((response) => {
@@ -123,11 +127,6 @@ export default {
       //   .catch((error) => {
       //     console.log(error)
       //   })
-      this.toastStore.showToast('inf', 'Félicitations ! Ton compte a été créé')
-      this.$router.push('/login')
-    },
-    toggleDisplayInputs() {
-      this.inputsDisplayed = !this.inputsDisplayed
     }
   }
 }
