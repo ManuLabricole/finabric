@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+from datetime import timedelta
 
 load_dotenv()  # Load environment variables from '.env'
 
@@ -87,8 +88,8 @@ REST_FRAMEWORK = {
 
 # Add Django REST framework JWT specific settings
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": int(os.getenv("JWT_ACCESS_TOKEN_LIFETIME")),
-    "REFRESH_TOKEN_LIFETIME": int(os.getenv("JWT_REFRESH_TOKEN_LIFETIME")),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=int(os.getenv("JWT_ACCESS_TOKEN_LIFETIME"))),
+    "REFRESH_TOKEN_LIFETIME": timedelta(int(os.getenv("JWT_REFRESH_TOKEN_LIFETIME"))),
     "ROTATE_REFRESH_TOKENS": True,
 }
 
