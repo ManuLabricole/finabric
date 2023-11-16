@@ -4,11 +4,11 @@
       <img src="../../assets/finabric_high.png" alt="" />
     </div>
     <div class="mb-8 mt-8">
-      <h1 class="text-white text-4xl font-normal tracking-wider mb-1">Créer mon compte</h1>
+      <h1 class="text-white text-4xl font-normal tracking-wider mb-1">{{ title }}</h1>
       <span class="text-gray-500 font-small"
-        >J'ai déjà un compte.
+        >{{ subtitle }}
         <a class="text-finaryYellow-500 hover:text-finaryYellow-600" href="/"
-          >Se connecter >
+          >{{ anchorText }}
         </a></span
       >
     </div>
@@ -25,7 +25,7 @@
     </div>
     <div class="flex items-center justify-center my-4">
       <div class="flex-1 border-t border-secondary"></div>
-      <span class="px-4 text-xs text-gray-600 uppercase">Ou s'inscrire par email</span>
+      <span class="px-4 text-xs text-gray-600 uppercase">{{ breakText }}</span>
       <div class="flex-1 border-t border-secondary"></div>
     </div>
   </div>
@@ -33,7 +33,14 @@
 
 <script>
 export default {
-  name: 'RegisterTop'
+  name: 'RegisterTop',
+  props: {
+    title: String,
+    subtitle: String,
+    anchorText: String,
+    anchorLink: String,
+    breakText: String
+  }
 }
 </script>
 
