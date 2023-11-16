@@ -8,7 +8,7 @@
       <span class="flex align-center text-gray-500 font-small"
         >{{ subtitle }}
         <router-link
-          :to="anchorLink"
+          :to="{name : anchorLink}"
           class="ml-2 text-finaryYellow-500 hover:text-finaryYellow-600"
         >
           {{ anchorText }}<i class="bi bi-caret-right-fill ml-2"></i>
