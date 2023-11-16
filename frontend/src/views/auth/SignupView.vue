@@ -9,8 +9,8 @@
           title="Créer mon compte"
           subtitle="J'ai déjà un compte."
           anchorText="Se connecter"
-          anchorLink="api/v1/login"
-          breakText="ou"
+          anchorLink="/api/v1/login"
+          breakText="OU S'INSCRIRE PAR EMAIL"
         />
         <form class="bg-transparent shadow-md space-y-5" @submit.prevent="onFormSubmit">
           <!-- Form inputs and submit button -->
