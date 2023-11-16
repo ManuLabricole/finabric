@@ -1,7 +1,7 @@
 <template>
   <div class="relative w-full">
     <label
-      for="password"
+      :for="id"
       :class="{
         'text-sm': isFocused || value,
         'transform -translate-y-6': isFocused || value
@@ -10,9 +10,9 @@
     >
       Mot de passe
     </label>
-    <div :class="borderClass" class="flex items-center border-b border-text-secondary">
+    <div :class="borderClass" class="flex items-center border-b border-text-secondary transition-colors duration-500">
       <input
-        id="password"
+        :id="id"
         :type="showPassword ? 'text' : 'password'"
         v-model="value"
         @focus="isFocused = true"
@@ -70,17 +70,18 @@ export default {
   },
   computed: {
     borderClass() {
-      switch (this.validationState) {
-        case 'success':
-          return 'border-finaryYellow-500'
-        case 'warning':
-          if (this.showMessage == 'false') return 'border-finaryYellow-500'
-          else return 'border-warning'
-        case 'error':
-          if (this.showMessage == 'false') return 'border-finaryYellow-500'
-          else return 'border-danger'
-        default:
-          return 'border-secondary'
+      if (this.isFocused && !this.showMessage) return 'border-finaryYellow-500'
+      else {
+        switch (this.validationState) {
+          case 'success':
+            return 'border-finaryYellow-500'
+          case 'warning':
+            return 'border-warning'
+          case 'error':
+            return 'border-danger'
+          default:
+            return 'border-secondary'
+        }
       }
     }
   },

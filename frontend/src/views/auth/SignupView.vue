@@ -56,7 +56,12 @@
             </div>
           </transition>
           <transition>
-            <PasswordInput v-if="inputsDisplayed" @inputChanged="validatePassword" />
+            <PasswordInput
+              :id="passwordRegister"
+              :showMessage=true
+              v-if="inputsDisplayed"
+              @inputChanged="validatePassword"
+            />
           </transition>
           <br />
         </form>

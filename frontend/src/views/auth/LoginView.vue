@@ -25,7 +25,11 @@
           />
 
           <transition>
-            <PasswordInput showMessage="false" @inputChanged="validatePassword" />
+            <PasswordInput
+              id="passwordLogin"
+              :showMessage=false
+              @inputChanged="validatePassword"
+            />
           </transition>
           <br />
         </form>
