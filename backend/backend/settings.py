@@ -31,7 +31,14 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# print(os.getenv("FRONTEND_HOST"))
+CORS_ALLOWED_ORIGINS = [
+    os.getenv("FRONTEND_HOST"),
+]
 
+CRSF_TRUSTED_ORIGINS = [
+    os.getenv("FRONTEND_HOST"),
+]
 
 # Application definition
 
@@ -42,8 +49,15 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # Personal apps
+    "rest_framework",  # Django REST framework
+    "rest_framework_simplejwt.token_blacklist",  # Django REST framework JWT
+    "corsheaders",  # Django CORS headers
+    # Django apps
+    "user_profile",  # User profile
 ]
 
+# Add Django REST framework specific settings
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -52,7 +66,32 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # Add Django CORS headers middleware
+    "corsheaders.middleware.CorsMiddleware",
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+    ],
+    "DEFAULT_PARSER_CLASSES": [
+        "rest_framework.parsers.JSONParser",
+    ],
+}
+
+# Add Django REST framework JWT specific settings
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": int(os.getenv("JWT_ACCESS_TOKEN_LIFETIME")),
+    "REFRESH_TOKEN_LIFETIME": int(os.getenv("JWT_REFRESH_TOKEN_LIFETIME")),
+    "ROTATE_REFRESH_TOKENS": True,
+}
+
 
 ROOT_URLCONF = "backend.urls"
 
@@ -94,13 +133,19 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
         "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        "OPTIONS": {
+            "min_length": 8,
+        },
+    },
+    {
+        "NAME": "user_profile.validators.SpecialCharacterValidator",
     },
 ]
 
