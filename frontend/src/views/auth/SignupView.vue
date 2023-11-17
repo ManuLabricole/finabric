@@ -144,10 +144,6 @@ export default {
         firstname: this.firstname,
         lastname: this.lastname,
         password: this.password
-        // email: import.meta.env.VITE_APP_DEV_EMAIL,
-        // firstname: import.meta.env.VITE_APP_DEV_FIRSTNAME,
-        // lastname: import.meta.env.VITE_APP_DEV_LASTNAME,
-        // password: import.meta.env.VITE_APP_DEV_PASSWORD
       }
       axios
         .post('api/v1/user/auth/register/', data)

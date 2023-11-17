@@ -85,8 +85,8 @@ export default {
   },
   data() {
     return {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       inputsFilled: false,
       erros: []
     }
@@ -125,6 +125,7 @@ export default {
         .post('api/v1/user/auth/login/', data)
         .then((response) => {
           console.log(response)
+          this.$router.push({ name: 'Dashboard' })
         })
         .catch((error) => {
           console.log(error)

@@ -3,7 +3,7 @@ from django.urls import path
 from django.urls.conf import include
 
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from .views import UserRegistrationView
+from .views import UserRegistrationView, CustomTokenObtainPairView
 
 
 urlpatterns = [
@@ -14,7 +14,7 @@ urlpatterns = [
     ),
     path(
         "auth/login/",
-        TokenObtainPairView.as_view(),
+        CustomTokenObtainPairView.as_view(),
         name="login",
     ),
     path(

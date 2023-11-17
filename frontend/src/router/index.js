@@ -4,7 +4,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'dashboard',
       component: () => import('../views/auth/SignupView.vue')
     },
     {
