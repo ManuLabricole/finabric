@@ -62,3 +62,45 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         related_name="customuser_user_permissions",
         related_query_name="customuser",
     )
+
+
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+from django.core.validators import MinValueValidator
+from PIL import Image
+
+
+class UserProfile(models.Model):
+    # Link to the CustomUser model
+    user = models.OneToOneField(
+        CustomUser, on_delete=models.CASCADE, related_name="profile"
+    )
+
+    # Additional fields
+    avatar = models.ImageField(
+        upload_to="avatars/", default="avatars/default.jpg", blank=True
+    ) # This indicate a subdirectory of the MEDIA_ROOT directory to store the uploaded file
+    first_name = models.CharField(_("first name"), max_length=150, blank=True)
+    last_name = models.CharField(_("last name"), max_length=150, blank=True)
+    age = models.PositiveIntegerField(default=18, validators=[MinValueValidator(18)])
+    monthly_income = models.DecimalField(
+        max_digits=10, decimal_places=2, validators=[MinValueValidator(0)]
+    )
+    monthly_expenses = models.DecimalField(
+        max_digits=10, decimal_places=2, validators=[MinValueValidator(0)]
+    )
+    saving_profile = models.TextField(blank=True)
+
+    def __str__(self):
+        return f"{self.user.email}'s profile"
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        # Handle image resizing
+        if self.avatar:
+            img = Image.open(self.avatar.path)
+            if img.height > 300 or img.width > 300:
+                output_size = (300, 300)
+                img.thumbnail(output_size)
+                img.save(self.avatar.path)
