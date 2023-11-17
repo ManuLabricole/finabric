@@ -30,6 +30,9 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+AUTH_USER_MODEL = "user_profile.CustomUser"
+
+
 ALLOWED_HOSTS = []
 # print(os.getenv("FRONTEND_HOST"))
 CORS_ALLOWED_ORIGINS = [
@@ -88,7 +91,9 @@ REST_FRAMEWORK = {
 
 # Add Django REST framework JWT specific settings
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=int(os.getenv("JWT_ACCESS_TOKEN_LIFETIME"))),
+    "ACCESS_TOKEN_LIFETIME": timedelta(
+        minutes=int(os.getenv("JWT_ACCESS_TOKEN_LIFETIME"))
+    ),
     "REFRESH_TOKEN_LIFETIME": timedelta(int(os.getenv("JWT_REFRESH_TOKEN_LIFETIME"))),
     "ROTATE_REFRESH_TOKENS": True,
 }
