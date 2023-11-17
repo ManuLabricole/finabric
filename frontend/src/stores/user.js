@@ -111,35 +111,33 @@ export const useUserStore = defineStore('user', {
         })
     },
     // Action to login the user.
-    login(email, password) {
+    async login(email, password) {
       console.log('login', email, password)
       // Start loading.
       this.startLoading()
-
-      // Make the login request.
-      axios
-        .post('/api/v1/auth/login/', {
-          email: email,
-          password: password
-        })
+      const form = {
+        email: email,
+        password: password
+      }
+      await axios
+        .post('api/v1/user/auth/login/', form)
         .then((response) => {
-          // console.log(response)
-
-          // Set the user tokens.
-          this.setToken(response.data)
-
-          // Get the user information.
-          this.getUserInfo()
-
-          // Stop loading.
-          this.endLoading()
+						this.setToken(response.data)
+            console.log(response.data.access)
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access
+            this.$router.push('/dashboard')
         })
         .catch((error) => {
-          console.log(error)
-
-          // Stop loading.
-          this.endLoading()
+          if (error.response.status === 400) {
+            this.errors.push(this.error400)
+          } else if (error.response.status === 401) {
+            this.errors.push(this.error401)
+          } else {
+            this.errors.push(error)
+          }
         })
+      // End loading.
+      this.endLoading()
     }
   },
   mutations: {

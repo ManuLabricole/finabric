@@ -116,7 +116,6 @@ export default {
     },
     async submitForm() {
       const data = {
-        username: "manulabricole",
         email: this.email,
         password: this.password
       }
