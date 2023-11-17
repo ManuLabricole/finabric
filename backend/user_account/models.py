@@ -75,24 +75,37 @@ class UserProfile(models.Model):
     user = models.OneToOneField(
         CustomUser, on_delete=models.CASCADE, related_name="profile"
     )
-
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     # Additional fields
     avatar = models.ImageField(
         upload_to="avatars/", default="avatars/default.jpg", blank=True
-    ) # This indicate a subdirectory of the MEDIA_ROOT directory to store the uploaded file
-    first_name = models.CharField(_("first name"), max_length=150, blank=True)
-    last_name = models.CharField(_("last name"), max_length=150, blank=True)
-    age = models.PositiveIntegerField(default=18, validators=[MinValueValidator(18)])
+    )  # This indicate a subdirectory of the MEDIA_ROOT directory to store the uploaded file
+    first_name = models.CharField(
+        _("first name"), max_length=150, blank=True, null=True
+    )
+    last_name = models.CharField(_("last name"), max_length=150, blank=True, null=True)
+    age = models.PositiveIntegerField(
+        default=18, validators=[MinValueValidator(18)], blank=True, null=True
+    )
     monthly_income = models.DecimalField(
-        max_digits=10, decimal_places=2, validators=[MinValueValidator(0)]
+        max_digits=10,
+        decimal_places=2,
+        validators=[MinValueValidator(0)],
+        blank=True,
+        null=True,
     )
     monthly_expenses = models.DecimalField(
-        max_digits=10, decimal_places=2, validators=[MinValueValidator(0)]
+        max_digits=10,
+        decimal_places=2,
+        validators=[MinValueValidator(0)],
+        blank=True,
+        null=True,
     )
     saving_profile = models.TextField(blank=True)
+    country = models.CharField(max_length=50, blank=True)
 
     def __str__(self):
-        return f"{self.user.email}'s profile"
+        return f"{self.user.email}"
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
