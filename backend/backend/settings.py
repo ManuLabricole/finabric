@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# AUTH_USER_MODEL = "user_profile.CustomUser"
+AUTH_USER_MODEL = "user_account.CustomUser"
 
 
 ALLOWED_HOSTS = []
@@ -58,7 +58,6 @@ INSTALLED_APPS = [
     "corsheaders",  # Django CORS headers
     # Django apps
     "user_account",  # User account
-    "user_profile",  # User profile
 ]
 
 # Add Django REST framework specific settings
@@ -101,7 +100,7 @@ SIMPLE_JWT = {
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",  # default
-    "user_profile.custom_auth.EmailAuthBackend",  # your custom backend
+    # "account_profile.custom_auth.EmailAuthBackend",  # your custom backend
 ]
 
 ROOT_URLCONF = "backend.urls"
@@ -156,7 +155,7 @@ AUTH_PASSWORD_VALIDATORS = [
         },
     },
     {
-        "NAME": "user_profile.validators.SpecialCharacterValidator",
+        "NAME": "user_account.validators.SpecialCharacterValidator",
     },
 ]
 
