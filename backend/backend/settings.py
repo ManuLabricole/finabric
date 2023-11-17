@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-AUTH_USER_MODEL = "user_profile.CustomUser"
+# AUTH_USER_MODEL = "user_profile.CustomUser"
 
 
 ALLOWED_HOSTS = []
