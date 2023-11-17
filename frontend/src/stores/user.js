@@ -112,7 +112,7 @@ export const useUserStore = defineStore('user', {
     },
     // Action to login the user.
     login(email, password) {
-      // console.log('login', email, password)
+      console.log('login', email, password)
       // Start loading.
       this.startLoading()
 

@@ -61,7 +61,8 @@ import PasswordInput from '@/components/inputs/login-registration/PasswordInput.
 import BaseTextInput from '@/components/inputs/BaseTextInput.vue'
 import BaseClickButton from '@/components/inputs/BaseClickButton.vue'
 
-import { useUserStore } from '@/store/user'
+import { useUserStore } from '@/stores/user'
+import axios from 'axios'
 
 // import axios from 'axios'
 
@@ -113,20 +114,22 @@ export default {
       }
       console.log(this.inputsFilled)
     },
-    submitForm() {
+    async submitForm() {
       const data = {
+        username: "manulabricole",
         email: this.email,
         password: this.password
       }
       console.log(data)
-      // axios
-      //   .post('api/v1/user/auth/register/', data)
-      //   .then((response) => {
-      //     console.log(response)
-      //   })
-      //   .catch((error) => {
-      //     console.log(error)
-      //   })
+      // this.userStore.login(data)
+      await axios
+        .post('api/v1/user/auth/login/', data)
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
   }
 }
