@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt.token_blacklist",  # Django REST framework JWT
     "corsheaders",  # Django CORS headers
     # Django apps
+    "user_account",  # User account
     "user_profile",  # User profile
 ]
 
