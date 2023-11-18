@@ -1,19 +1,18 @@
 <!-- MainLayout.vue -->
 <template>
   <NavigationBar />
-  <TopBar />
+  <HeaderComponent />
   <slot></slot>
   <!-- This is where page-specific content will go -->
 </template>
 
 <script>
 import NavigationBar from '../../components/navbar/NavigationBar.vue'
-import TopBar from '../../components/header/HeaderComponent.vue'
-
+import HeaderComponent from '../../components/header/HeaderComponent.vue'
 export default {
   components: {
     NavigationBar,
-    TopBar
+    HeaderComponent
   }
 }
 </script>
