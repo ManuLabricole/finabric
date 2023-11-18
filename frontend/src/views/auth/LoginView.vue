@@ -85,10 +85,17 @@ export default {
   },
   data() {
     return {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
       inputsFilled: false,
-      erros: []
+      error400: "Une erreur s'est produite lors de la connexion. Veuillez réessayer.",
+      error401: 'Mot de passe incorrect. Veuillez réessayer.',
+      errors: []
+    }
+  },
+  mounted() {
+    if (this.userStore.user.isAuthenticated) {
+      this.$router.push({ name: 'dashboard' })
     }
   },
   methods: {
@@ -119,16 +126,24 @@ export default {
         email: this.email,
         password: this.password
       }
-      console.log(data)
       // this.userStore.login(data)
       await axios
         .post('api/v1/user/auth/login/', data)
         .then((response) => {
           console.log(response)
-          this.$router.push({ name: 'Dashboard' })
+          this.userStore.setToken(response.data.access)
+          console.log(this.userStore.token)
+          axios.defaults.headers.common.Authorization = `Bearer ${this.userStore.token}`
+          this.$router.push({ name: 'dashboard' })
         })
         .catch((error) => {
-          console.log(error)
+          if (error.response.status === 400) {
+            this.errors.push(this.error400)
+          } else if (error.response.status === 401) {
+            this.errors.push(this.error401)
+          } else {
+            this.errors.push(error)
+          }
         })
     }
   }
