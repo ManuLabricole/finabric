@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'MessageError',
+  name: 'feedback-messages/ErrorMessage',
   props: {
     show: {
       type: Boolean,

@@ -57,7 +57,7 @@
           </transition>
           <transition>
             <PasswordInput
-              :id="passwordRegister"
+              :id="'passwordRegister'"
               :showMessage="true"
               v-if="inputsDisplayed"
               @inputChanged="validatePassword"
