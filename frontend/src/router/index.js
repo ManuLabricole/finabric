@@ -4,8 +4,8 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'dashboard',
-      component: () => import('../views/auth/SignupView.vue')
+      name: 'home',
+      component: () => import('../views/auth/LoginView.vue')
     },
     {
       path: '/api/v1/signup',
@@ -16,9 +16,13 @@ const router = createRouter({
       path: '/api/v1/login',
       name: 'login',
       component: () => import('../views/auth/LoginView.vue')
+    },
+    {
+      path: '/app/v1/dashboard',
+      name: 'dashboard',
+      component: () => import('../views/pages/DashboardView.vue')
     }
-  ],
-  
+  ]
 })
 
 export default router
