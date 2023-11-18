@@ -1,11 +1,12 @@
 <template>
-  <div>
-    <h1>Dashboard view</h1>
-  </div>
+  <MainLayout>
+    <h1>Dashboard</h1>
+  </MainLayout>
 </template>
 
 <script>
-export default {}
+import MainLayout from './MainLayout.vue'
+export default { components: { MainLayout } }
 </script>
 
 <style lang="postcss" scoped></style>
