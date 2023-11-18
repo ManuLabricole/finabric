@@ -31,24 +31,6 @@
     <ErrorMessage :show="validationState == 'error' && showMessage == true" :message="validationMessage" />
     <WarningMessage :show="validationState == 'warning' && showMessage == true" :message="validationMessage" />
     <SuccessMessage :show="validationState == 'success' && showMessage == true" :message="validationMessage" />
-    <!-- <div v-if="validationState == 'error' && showMessage == true" class="w-full absolute mt-2">
-      <p class="flex text-sm text-danger h-full">
-        <i class="bi bi-exclamation-circle mr-2"></i>
-        {{ validationMessage }}
-      </p>
-    </div> -->
-    <!-- <div v-if="validationState == 'warning' && showMessage == true" class="w-full absolute mt-2">
-      <p class="flex text-sm text-warning h-full">
-        <i class="bi bi-exclamation-circle mr-2"></i>
-        {{ validationMessage }}
-      </p>
-    </div>
-    <div v-if="validationState == 'success' && showMessage == true" class="w-full absolute mt-2">
-      <p class="flex text-sm text-success h-full">
-        <i class="bi bi-check-circle mr-2"></i>
-        {{ validationMessage }}
-      </p>
-    </div> -->
   </div>
 </template>
 
