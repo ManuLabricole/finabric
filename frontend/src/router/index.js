@@ -5,7 +5,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('../views/auth/SignupView.vue')
+      component: () => import('../views/auth/LoginView.vue')
     },
     {
       path: '/api/v1/signup',
@@ -16,9 +16,20 @@ const router = createRouter({
       path: '/api/v1/login',
       name: 'login',
       component: () => import('../views/auth/LoginView.vue')
+    },
+    {
+      path: '/',
+      component: () => import('../views/pages/DashboardView.vue'),
+      children: [
+        {
+          path: '/dashboard',
+          name: 'dashboard',
+          component: () => import('../views/pages/DashboardView.vue')
+        }
+        // ... other child routes ...
+      ]
     }
-  ],
-  
+  ]
 })
 
 export default router

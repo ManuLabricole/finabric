@@ -57,7 +57,7 @@
           </transition>
           <transition>
             <PasswordInput
-              :id="passwordRegister"
+              :id="'passwordRegister'"
               :showMessage="true"
               v-if="inputsDisplayed"
               @inputChanged="validatePassword"
@@ -96,7 +96,7 @@ import BaseClickButton from '@/components/inputs/BaseClickButton.vue'
 import ToastInfo from '@/components/common/ToastInfo.vue'
 import { useToastStore } from '@/stores/toast'
 
-// import axios from 'axios'
+import axios from 'axios'
 
 export default {
   name: 'SignupView',
@@ -139,22 +139,22 @@ export default {
   },
   methods: {
     submitForm() {
-      // const data = {
-      //   email: this.email,
-      //   firstname: this.firstname,
-      //   lastname: this.lastname,
-      //   password: this.password
-      // }
-      // axios
-      //   .post('api/v1/user/auth/register/', data)
-      //   .then((response) => {
-      //     console.log(response)
-      //   })
-      //   .catch((error) => {
-      //     console.log(error)
-      //   })
-      this.toastStore.showToast('inf', 'Félicitations ! Ton compte a été créé')
-      this.$router.push('/login')
+      const data = {
+        email: this.email,
+        firstname: this.firstname,
+        lastname: this.lastname,
+        password: this.password
+      }
+      axios
+        .post('api/v1/user/auth/register/', data)
+        .then((response) => {
+          console.log(response)
+          this.toastStore.showToast(5000, 'Félicitations ! Ton compte a été créé')
+          this.$router.push('/login')
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     },
     toggleDisplayInputs() {
       this.inputsDisplayed = !this.inputsDisplayed

@@ -13,13 +13,13 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+from datetime import timedelta
 
 load_dotenv()  # Load environment variables from '.env'
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -29,6 +29,9 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+AUTH_USER_MODEL = "user_account.CustomUser"
+
 
 ALLOWED_HOSTS = []
 # print(os.getenv("FRONTEND_HOST"))
@@ -54,7 +57,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt.token_blacklist",  # Django REST framework JWT
     "corsheaders",  # Django CORS headers
     # Django apps
-    "user_profile",  # User profile
+    "user_account",  # User account
 ]
 
 # Add Django REST framework specific settings
@@ -72,6 +75,7 @@ MIDDLEWARE = [
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
         "rest_framework.authentication.SessionAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": [
@@ -87,11 +91,17 @@ REST_FRAMEWORK = {
 
 # Add Django REST framework JWT specific settings
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": int(os.getenv("JWT_ACCESS_TOKEN_LIFETIME")),
-    "REFRESH_TOKEN_LIFETIME": int(os.getenv("JWT_REFRESH_TOKEN_LIFETIME")),
+    "ACCESS_TOKEN_LIFETIME": timedelta(
+        minutes=int(os.getenv("JWT_ACCESS_TOKEN_LIFETIME"))
+    ),
+    "REFRESH_TOKEN_LIFETIME": timedelta(int(os.getenv("JWT_REFRESH_TOKEN_LIFETIME"))),
     "ROTATE_REFRESH_TOKENS": True,
 }
 
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",  # default
+    # "account_profile.custom_auth.EmailAuthBackend",  # your custom backend
+]
 
 ROOT_URLCONF = "backend.urls"
 
@@ -145,7 +155,7 @@ AUTH_PASSWORD_VALIDATORS = [
         },
     },
     {
-        "NAME": "user_profile.validators.SpecialCharacterValidator",
+        "NAME": "user_account.validators.SpecialCharacterValidator",
     },
 ]
 
@@ -165,6 +175,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+# Media files
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "media/"  # This indicate a URL prefix to serve the uploaded files
 STATIC_URL = "static/"
 
 # Default primary key field type

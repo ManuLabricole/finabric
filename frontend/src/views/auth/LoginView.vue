@@ -61,6 +61,9 @@ import PasswordInput from '@/components/inputs/login-registration/PasswordInput.
 import BaseTextInput from '@/components/inputs/BaseTextInput.vue'
 import BaseClickButton from '@/components/inputs/BaseClickButton.vue'
 
+import { useUserStore } from '@/stores/user'
+import axios from 'axios'
+
 // import axios from 'axios'
 
 export default {
@@ -73,26 +76,26 @@ export default {
     BaseTextInput,
     BaseClickButton
   },
-  setup() {},
+  setup() {
+    const userStore = useUserStore()
+
+    return {
+      userStore
+    }
+  },
   data() {
     return {
       email: '',
       password: '',
-
-      isEmailValid: false,
-      isFirstnameValid: false,
-      isLastnameValid: false,
-      isPasswordValid: false,
-
-      emailValidationEnable: false,
       inputsFilled: false,
-      formValidationEnable: false
+      error400: "Une erreur s'est produite lors de la connexion. Veuillez réessayer.",
+      error401: 'Mot de passe incorrect. Veuillez réessayer.',
+      errors: []
     }
   },
-  watch: {
-    // We console log the value if changed
-    email: function (val) {
-      console.log(val)
+  mounted() {
+    if (this.userStore.user.isAuthenticated) {
+      this.$router.push({ name: 'dashboard' })
     }
   },
   methods: {
@@ -100,8 +103,6 @@ export default {
       // Your email validation logic goes here
       if (isValid) {
         this.email = email
-        this.isEmailValid = true
-        this.emailValidationEnable = true
       }
       this.validateForm()
     },
@@ -112,26 +113,38 @@ export default {
       }
       this.validateForm()
     },
-    submitForm() {
-      // const data = {
-      //   email: this.email,
-      //   firstname: this.firstname,
-      //   lastname: this.lastname,
-      //   password: this.password
-      // }
-      // axios
-      //   .post('api/v1/user/auth/register/', data)
-      //   .then((response) => {
-      //     console.log(response)
-      //   })
-      //   .catch((error) => {
-      //     console.log(error)
-      //   })
-      this.toastStore.showToast('inf', 'Félicitations ! Ton compte a été créé')
-      this.$router.push('/login')
+    validateForm() {
+      if (this.email != '' && this.password != '') {
+        this.inputsFilled = true
+      } else {
+        this.inputsFilled = false
+      }
+      console.log(this.inputsFilled)
     },
-    toggleDisplayInputs() {
-      this.inputsDisplayed = !this.inputsDisplayed
+    async submitForm() {
+      const data = {
+        email: this.email,
+        password: this.password
+      }
+      // this.userStore.login(data)
+      await axios
+        .post('api/v1/user/auth/login/', data)
+        .then((response) => {
+          console.log(response)
+          this.userStore.setToken(response.data.access)
+          console.log(this.userStore.token)
+          axios.defaults.headers.common.Authorization = `Bearer ${this.userStore.token}`
+          this.$router.push({ name: 'dashboard' })
+        })
+        .catch((error) => {
+          if (error.response.status === 400) {
+            this.errors.push(this.error400)
+          } else if (error.response.status === 401) {
+            this.errors.push(this.error401)
+          } else {
+            this.errors.push(error)
+          }
+        })
     }
   }
 }
