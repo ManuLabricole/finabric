@@ -28,18 +28,24 @@
       placeholder=""
       @input="onInput(value, type)"
     />
-    <div v-if="validationState == 'error'" class="w-full absolute mt-2">
+    <MessageError :show="validationState === 'error'" :message="errorMessage" />
+
+    <!-- <div v-if="validationState == 'error'" class="w-full absolute mt-2">
       <p class="flex text-sm text-danger h-full">
         <i class="bi bi-exclamation-circle mr-2"></i>
         {{ errorMessage }}
       </p>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
+import MessageError from '@/components/feedback_messages/ErrorMessage.vue'
 export default {
   name: 'BaseInput',
+  components: {
+    MessageError
+  },
   props: {
     id: {
       type: String,
